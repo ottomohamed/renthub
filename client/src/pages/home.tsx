@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { searchItems, type Item } from "@/lib/mock-db";
+import { SPANISH_REGIONS, CATEGORIES, MAJOR_CITIES } from "@/lib/spain-data";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -11,20 +12,30 @@ import { AnnouncementBanner } from "@/components/AnnouncementBanner";
 export default function Home() {
   const [query, setQuery] = useState("");
   const [city, setCity] = useState("");
+  const [category, setCategory] = useState("");
   const [items, setItems] = useState<Item[]>([]);
   const [, setLocation] = useLocation();
 
   // Initial load and search effect
   useEffect(() => {
+    // Modify search slightly to account for the new category state if we want later,
+    // for now we pass query and city to mock-db search.
     const results = searchItems(query, city);
-    // Filter to show mostly heavy machinery and sort sponsored first
-    const sorted = [...results].sort((a, b) => {
+    
+    // Filter by explicit category if selected
+    let filtered = results;
+    if (category) {
+      filtered = filtered.filter(item => item.category === category);
+    }
+    
+    // Sort sponsored first
+    const sorted = [...filtered].sort((a, b) => {
       if (a.isPromoted && !b.isPromoted) return -1;
       if (!a.isPromoted && b.isPromoted) return 1;
       return 0;
     });
     setItems(sorted);
-  }, [query, city]);
+  }, [query, city, category]);
 
   return (
     <div className="min-h-screen bg-background text-foreground font-sans">
@@ -59,15 +70,21 @@ export default function Home() {
               onChange={(e) => setCity(e.target.value)}
               data-testid="select-city"
             >
-              <option value="">Todas las ciudades</option>
-              <option value="Madrid">Madrid</option>
-              <option value="Barcelona">Barcelona</option>
-              <option value="Valencia">Valencia</option>
-              <option value="Sevilla">Sevilla</option>
+              <option value="">Toda España</option>
+              <optgroup label="Comunidades Autónomas">
+                {SPANISH_REGIONS.map(region => (
+                  <option key={`region-${region}`} value={region}>{region}</option>
+                ))}
+              </optgroup>
+              <optgroup label="Municipios y Ciudades Principales">
+                {MAJOR_CITIES.map(city => (
+                  <option key={`city-${city}`} value={city}>{city}</option>
+                ))}
+              </optgroup>
             </select>
             <div className="relative flex-1">
               <Input 
-                placeholder="Buscar maquinaria pesada, excavadoras, tractores..." 
+                placeholder="Buscar maquinaria, herramientas, vehículos..." 
                 className="w-full bg-white text-black border-none md:rounded-none rounded-l-md focus-visible:ring-2 focus-visible:ring-[#f3a847] h-10 px-4 text-base"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
@@ -108,12 +125,17 @@ export default function Home() {
         
         {/* Amazon Sub-nav */}
         <div className="bg-[#232f3e] px-4 py-2 text-sm flex gap-4 overflow-x-auto whitespace-nowrap hide-scrollbar">
-          <a href="#" className="flex items-center gap-1 font-bold hover:text-white border border-transparent hover:border-white px-2 rounded-sm"><Menu className="w-4 h-4"/> Todo</a>
-          <a href="#" className="hover:text-white border border-transparent hover:border-white px-2 rounded-sm">Maquinaria Pesada</a>
-          <a href="#" className="hover:text-white border border-transparent hover:border-white px-2 rounded-sm">Tractores</a>
-          <a href="#" className="hover:text-white border border-transparent hover:border-white px-2 rounded-sm">Excavadoras</a>
-          <a href="#" className="hover:text-white border border-transparent hover:border-white px-2 rounded-sm">Herramientas Profesionales</a>
-          <a href="#" className="hover:text-white border border-transparent hover:border-white px-2 rounded-sm">Vehículos Industriales</a>
+          <a href="#" className="flex items-center gap-1 font-bold hover:text-white border border-transparent hover:border-white px-2 rounded-sm" onClick={(e) => { e.preventDefault(); setCategory(""); }}><Menu className="w-4 h-4"/> Todo</a>
+          {CATEGORIES.map(cat => (
+            <a 
+              key={cat.id} 
+              href="#" 
+              onClick={(e) => { e.preventDefault(); setCategory(cat.id); }}
+              className={`hover:text-white border px-2 rounded-sm ${category === cat.id ? 'border-white font-bold text-white' : 'border-transparent text-gray-300'}`}
+            >
+              {cat.name}
+            </a>
+          ))}
         </div>
       </header>
 
@@ -121,7 +143,7 @@ export default function Home() {
       <main className="container mx-auto px-4 py-6 bg-gray-50 dark:bg-background min-h-[calc(100vh-200px)]">
         <div className="flex justify-between items-end mb-4 border-b border-gray-200 pb-2">
           <h2 className="text-xl font-bold text-gray-900">
-            Resultados para "Maquinaria Pesada y Vehículos"
+            {category ? `Resultados en: ${CATEGORIES.find(c => c.id === category)?.name}` : 'Resultados Destacados de Maquinaria y Equipamiento'}
           </h2>
           <span className="text-sm text-gray-500 whitespace-nowrap">{items.length} resultados</span>
         </div>
