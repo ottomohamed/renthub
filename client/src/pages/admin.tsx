@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Badge } from "@/components/ui/badge";
 import { Users, LayoutList, TrendingUp, Settings, ArrowLeft, Lock, Trash2, Ban, Image as ImageIcon, CheckCircle, ShieldAlert, Key } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
