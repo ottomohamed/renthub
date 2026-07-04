@@ -69,6 +69,7 @@ export interface Item {
   rating: number;
   totalReviews: number;
   badge?: { es: string };
+  isPromoted?: boolean;
   specifications?: Record<string, string>;
   lastBumpTime: Date;
   isActive: boolean;
@@ -77,7 +78,7 @@ export interface Item {
 
 export const ITEMS: Item[] = [
   {
-    id: 1, ownerId: 1, title: "جرار زراعي John Deere 5075E", titleEs: "Tractor Agrícola John Deere 5075E", description: "Potente tractor agrícola de John Deere, ideal para terrenos extensos...", category: "heavy", pricePerDay: 250, currency: "€", city: "Madrid", country: "España", available: true, images: ["https://images.unsplash.com/photo-1530267981375-27347747084d?q=80&w=2960&auto=format&fit=crop"], rating: 4.9, totalReviews: 38, badge: { es: "Más solicitado" }, specifications: { power: "75 HP" },
+    id: 1, ownerId: 1, title: "جرار زراعي John Deere 5075E", titleEs: "Tractor Agrícola John Deere 5075E", description: "Potente tractor agrícola de John Deere, ideal para terrenos extensos...", category: "heavy", pricePerDay: 250, currency: "€", city: "Madrid", country: "España", available: true, images: ["https://images.unsplash.com/photo-1530267981375-27347747084d?q=80&w=2960&auto=format&fit=crop"], rating: 4.9, totalReviews: 38, badge: { es: "Anuncio Patrocinado" }, isPromoted: true, specifications: { power: "75 HP" },
     lastBumpTime: new Date(Date.now() - 3600000 * 2), isActive: true, trialEndsOn: null
   },
   {
@@ -92,9 +93,17 @@ export const ITEMS: Item[] = [
     id: 4, ownerId: 4, title: "خيمة احترافية للمناسبات 10x10 متر", titleEs: "Carpa Profesional para Eventos 10x10 metros", description: "Carpa profesional grande, perfecta para bodas y eventos especiales...", category: "events", pricePerDay: 120, currency: "€", city: "Sevilla", country: "España", available: true, images: ["https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?q=80&w=2970&auto=format&fit=crop"], rating: 4.7, totalReviews: 56, badge: { es: "Oferta especial" }, specifications: { size: "10x10m" },
     lastBumpTime: new Date(Date.now() - 3600000 * 10), isActive: true, trialEndsOn: null
   },
+  {
+    id: 5, ownerId: 1, title: "حفارة كاتربيلر", titleEs: "Excavadora de Orugas Caterpillar 320", description: "Excavadora pesada para grandes proyectos de construcción...", category: "heavy", pricePerDay: 450, currency: "€", city: "Madrid", country: "España", available: true, images: ["https://images.unsplash.com/photo-1579625345717-380d19973809?q=80&w=2960&auto=format&fit=crop"], rating: 5.0, totalReviews: 12, badge: { es: "Anuncio Patrocinado" }, isPromoted: true, specifications: { weight: "20 Ton" },
+    lastBumpTime: new Date(Date.now() - 3600000 * 0.5), isActive: true, trialEndsOn: null
+  },
+  {
+    id: 6, ownerId: 2, title: "شاحنة مرسيدس", titleEs: "Camión Volquete Mercedes-Benz Arocs", description: "Camión volquete de gran capacidad para transporte de materiales...", category: "heavy", pricePerDay: 350, currency: "€", city: "Valencia", country: "España", available: true, images: ["https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?q=80&w=2970&auto=format&fit=crop"], rating: 4.6, totalReviews: 24, badge: { es: "Anuncio Patrocinado" }, isPromoted: true, specifications: { capacity: "18 Ton" },
+    lastBumpTime: new Date(Date.now() - 3600000 * 5), isActive: true, trialEndsOn: null
+  },
   // إعلان تجريبي
   {
-    id: 5, ownerId: 4, title: "رافع كهربائي صغير (تجريبي)", titleEs: "Mini Elevador Eléctrico (Prueba)", description: "Elevador eléctrico ideal para mantenimiento del hogar...", category: "tools", pricePerDay: 40, currency: "€", city: "Sevilla", country: "España", available: true, images: ["https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2970&auto=format&fit=crop"], rating: 4.5, totalReviews: 0, badge: { es: "Prueba" }, specifications: { power: "2KW", height: "3m" },
+    id: 7, ownerId: 4, title: "رافع كهربائي صغير (تجريبي)", titleEs: "Mini Elevador Eléctrico (Prueba)", description: "Elevador eléctrico ideal para mantenimiento del hogar...", category: "tools", pricePerDay: 40, currency: "€", city: "Sevilla", country: "España", available: true, images: ["https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2970&auto=format&fit=crop"], rating: 4.5, totalReviews: 0, badge: { es: "Prueba" }, specifications: { power: "2KW", height: "3m" },
     lastBumpTime: new Date(), isActive: true,
     trialEndsOn: new Date(Date.now() + 3600000 * 0.5)
   }

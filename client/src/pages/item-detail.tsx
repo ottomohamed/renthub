@@ -4,7 +4,7 @@ import { getItemById, getUserById, type Item, type User } from "@/lib/mock-db";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
-import { Star, Phone, ArrowLeft, MapPin, Calendar } from "lucide-react";
+import { Star, Phone, ArrowLeft, MapPin, Calendar, Truck, ShieldCheck } from "lucide-react";
 import { Link } from "wouter";
 
 export default function ItemDetail() {
@@ -46,57 +46,103 @@ export default function ItemDetail() {
   }
 
   return (
-    <div className="min-h-screen bg-background text-foreground p-4 md:p-8">
-      <div className="container mx-auto max-w-6xl">
-        {/* Header Nav */}
-        <header className="flex justify-start py-4 mb-8 border-b border-border/50">
+    <div className="min-h-screen bg-gray-50 text-gray-900 pb-12">
+      {/* Amazon-style header */}
+      <header className="bg-[#131921] text-white p-4">
+        <div className="container mx-auto flex items-center">
           <Link href="/">
-            <a className="text-primary hover:text-primary/80 flex items-center gap-2 text-lg font-bold transition-colors">
-              <ArrowLeft className="w-5 h-5" />
-              Volver al inicio
+            <a className="text-xl font-bold text-white hover:text-[#f3a847] transition-colors flex items-center gap-1">
+              <span className="bg-[#f3a847] text-black px-2 py-1 rounded font-black tracking-tighter">RH</span>
+              <span className="tracking-tight">RentHub</span>
             </a>
           </Link>
-        </header>
+        </div>
+      </header>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 pb-12">
-          {/* Main Info */}
-          <div className="lg:col-span-2 space-y-8">
-            <div>
-              <h1 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">{item.titleEs}</h1>
-              
-              <div className="text-5xl font-bold text-primary my-6 drop-shadow-[0_0_10px_rgba(0,255,192,0.3)]">
-                {item.pricePerDay} {item.currency} <span className="text-lg text-muted-foreground font-normal">/ día</span>
+      <div className="container mx-auto p-4 md:p-8 max-w-7xl">
+        <div className="text-sm text-gray-500 mb-4">
+          <Link href="/"><a className="hover:underline hover:text-[#007185]">Inicio</a></Link> › 
+          <span className="mx-1">Alquiler de Maquinaria</span> › 
+          <span className="mx-1 capitalize">{item.category}</span>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 bg-white p-6 rounded-lg border border-gray-200">
+          {/* Left Column - Images */}
+          <div className="md:col-span-5">
+            <div className="sticky top-4">
+              <div className="relative aspect-[4/3] w-full overflow-hidden rounded border border-gray-200 bg-gray-100 flex items-center justify-center mb-4">
+                <img 
+                  src={item.images[0]} 
+                  alt={item.titleEs} 
+                  className="w-full h-full object-contain mix-blend-multiply"
+                />
+              </div>
+              <div className="flex gap-2">
+                <div className="w-16 h-16 border-2 border-[#f3a847] rounded cursor-pointer p-1">
+                  <img src={item.images[0]} className="w-full h-full object-cover" alt="Thumbnail" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Middle Column - Product Info */}
+          <div className="md:col-span-4 space-y-4">
+            <h1 className="text-2xl md:text-3xl font-medium text-gray-900 leading-tight">
+              {item.titleEs}
+            </h1>
+            
+            <div className="flex items-center gap-4 text-sm border-b border-gray-200 pb-4">
+              <div className="flex items-center gap-1">
+                <div className="flex text-[#ffa41c]">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className={`h-4 w-4 ${i < Math.floor(item.rating) ? 'fill-current' : 'text-gray-300'}`} />
+                  ))}
+                </div>
+                <span className="text-[#007185] hover:text-[#c45500] hover:underline cursor-pointer">
+                  {item.totalReviews} valoraciones
+                </span>
               </div>
             </div>
 
-            <div className="relative aspect-video w-full overflow-hidden rounded-xl border-2 border-primary/30 shadow-2xl shadow-primary/5">
-              <img 
-                src={item.images[0]} 
-                alt={item.titleEs} 
-                className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
-              />
-              {item.badge?.es && (
-                <Badge className="absolute top-4 left-4 text-lg py-1 px-3 bg-primary text-background font-bold hover:bg-primary border-none">
-                  {item.badge.es}
-                </Badge>
-              )}
+            <div className="py-2">
+              <div className="flex items-baseline gap-1 text-gray-900">
+                <span className="text-sm font-medium">Precio alquiler:</span>
+                <span className="text-xl align-top">€</span>
+                <span className="text-3xl font-medium">{item.pricePerDay}</span>
+                <span className="text-sm text-gray-500">/día</span>
+              </div>
             </div>
 
-            <div className="space-y-4">
-              <h3 className="text-2xl font-bold text-primary border-b border-border pb-2">Descripción completa</h3>
-              <p className="text-lg text-muted-foreground leading-relaxed whitespace-pre-line">
+            <div className="space-y-2 text-sm text-gray-700 mt-4">
+              <div className="flex items-start gap-2">
+                <Truck className="w-5 h-5 text-gray-600 shrink-0" />
+                <div>
+                  <span className="font-bold">Entrega disponible</span> en {item.city} y alrededores.
+                </div>
+              </div>
+              <div className="flex items-start gap-2">
+                <ShieldCheck className="w-5 h-5 text-gray-600 shrink-0" />
+                <div>
+                  <span className="font-bold">Garantía RentHub</span> cubre hasta 50.000€ en daños.
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-6">
+              <h3 className="font-bold text-gray-900 mb-2">Acerca de este equipo</h3>
+              <p className="text-sm text-gray-700 leading-relaxed whitespace-pre-line">
                 {item.description}
               </p>
             </div>
 
             {item.specifications && (
-              <div className="space-y-4">
-                <h3 className="text-2xl font-bold text-primary border-b border-border pb-2">Especificaciones Técnicas</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="mt-6">
+                <h3 className="font-bold text-gray-900 mb-2">Especificaciones</h3>
+                <div className="grid grid-cols-1 gap-2 text-sm">
                   {Object.entries(item.specifications).map(([key, value]) => (
-                    <div key={key} className="bg-white/5 backdrop-blur-sm p-4 rounded-lg border border-white/10 flex justify-between items-center">
-                      <span className="text-muted-foreground uppercase text-sm font-bold tracking-wider">{key}</span>
-                      <span className="text-foreground font-bold text-lg">{value}</span>
+                    <div key={key} className="flex border-b border-gray-100 pb-1">
+                      <span className="text-gray-600 uppercase font-medium w-1/3">{key}</span>
+                      <span className="text-gray-900 w-2/3">{value}</span>
                     </div>
                   ))}
                 </div>
@@ -104,53 +150,54 @@ export default function ItemDetail() {
             )}
           </div>
 
-          {/* Sidebar / Owner Info */}
-          <div className="lg:col-span-1">
-            <Card className="p-6 bg-card border-border shadow-xl sticky top-8">
-              <h3 className="text-xl font-bold text-foreground border-b-2 border-primary pb-3 mb-6">
-                Datos del Propietario
-              </h3>
-              
-              <div className="space-y-6">
-                <div>
-                  <p className="text-muted-foreground text-sm mb-1">Nombre</p>
-                  <p className="text-xl font-bold">{owner ? owner.nameEs : 'N/A'}</p>
+          {/* Right Column - Buy Box */}
+          <div className="md:col-span-3">
+            <Card className="border border-gray-300 rounded-lg shadow-sm">
+              <div className="p-4 space-y-4">
+                <div className="flex items-baseline gap-1 text-gray-900">
+                  <span className="text-xl align-top">€</span>
+                  <span className="text-3xl font-medium">{item.pricePerDay}</span>
+                  <span className="text-sm text-gray-500">/día</span>
                 </div>
-
-                <div>
-                  <div className="flex items-center gap-2 text-2xl font-bold text-primary mb-1">
-                    <Star className="fill-current" /> 
-                    {owner ? owner.ratingAvg : 'N/A'}
-                  </div>
-                  <p className="text-muted-foreground text-sm">
-                    ({owner ? owner.totalRatings : 0} valoraciones)
-                  </p>
-                </div>
-
-                <div className="space-y-2">
-                  <div className="flex items-center gap-3 text-muted-foreground">
-                    <MapPin className="w-5 h-5 text-primary" />
-                    <span>{item.city}, {item.country}</span>
-                  </div>
-                  <div className="flex items-center gap-3 text-muted-foreground">
-                    <Calendar className="w-5 h-5 text-primary" />
-                    <span>Miembro desde: {owner ? owner.memberSince : 'N/A'}</span>
-                  </div>
-                </div>
-
-                <Button 
-                  className="w-full h-14 text-lg font-bold bg-primary text-background hover:bg-primary/90 mt-4"
-                  onClick={() => window.location.href = `tel:${owner?.phoneNumber}`}
-                >
-                  <Phone className="mr-2 w-5 h-5" />
-                  Llamar al Propietario
-                </Button>
                 
-                {owner && (
-                  <p className="text-center text-xs text-muted-foreground mt-2">
-                    {owner.phoneNumber}
-                  </p>
-                )}
+                <div className="text-sm">
+                  <div className="flex items-center gap-1 text-[#007185] mb-2 hover:underline cursor-pointer">
+                    <MapPin className="w-4 h-4" />
+                    <span>Enviar a {item.city}</span>
+                  </div>
+                  
+                  {item.available ? (
+                    <h4 className="text-lg text-[#007600] font-medium">Disponible</h4>
+                  ) : (
+                    <h4 className="text-lg text-[#B12704] font-medium">No Disponible</h4>
+                  )}
+                </div>
+
+                <div className="text-sm space-y-1">
+                  <div className="flex justify-between">
+                    <span className="text-gray-500">Propietario:</span>
+                    <span className="text-[#007185] hover:underline cursor-pointer truncate max-w-[120px] text-right">
+                      {owner ? owner.nameEs : 'N/A'}
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-500">Ubicación:</span>
+                    <span>{item.city}</span>
+                  </div>
+                </div>
+
+                <div className="space-y-2 pt-4 border-t border-gray-200">
+                  <Button className="w-full rounded-full bg-[#ffd814] hover:bg-[#f7ca00] text-black border border-[#fcd200] shadow-sm">
+                    Añadir a la cesta
+                  </Button>
+                  <Button 
+                    className="w-full rounded-full bg-[#ffa41c] hover:bg-[#fa8900] text-black border border-[#ff8f00] shadow-sm flex items-center justify-center gap-2"
+                    onClick={() => window.location.href = `tel:${owner?.phoneNumber}`}
+                  >
+                    <Phone className="w-4 h-4" />
+                    Contactar Propietario
+                  </Button>
+                </div>
               </div>
             </Card>
           </div>

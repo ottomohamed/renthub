@@ -7,34 +7,34 @@
   /* Font Family */
   --font-sans: 'Cairo', sans-serif;
   
-  /* Colors from RentHub 2030 design */
-  --color-background: #0A0A0E;
-  --color-foreground: #EFEFEF;
+  /* Colors adjusted for Amazon style light mode by default */
+  --color-background: #F3F4F6;
+  --color-foreground: #111827;
   
-  --color-card: #1A1A22;
-  --color-card-foreground: #EFEFEF;
+  --color-card: #FFFFFF;
+  --color-card-foreground: #111827;
   
-  --color-popover: #1A1A22;
-  --color-popover-foreground: #EFEFEF;
+  --color-popover: #FFFFFF;
+  --color-popover-foreground: #111827;
   
-  --color-primary: #00FFC0; /* Neon Green */
-  --color-primary-foreground: #0A0A0E;
+  --color-primary: #f3a847; /* Amazon Orange */
+  --color-primary-foreground: #111827;
   
-  --color-secondary: #1A1A22;
-  --color-secondary-foreground: #B0B0C0;
+  --color-secondary: #232f3e; /* Amazon Navy */
+  --color-secondary-foreground: #FFFFFF;
   
-  --color-muted: rgba(255, 255, 255, 0.05);
-  --color-muted-foreground: #B0B0C0;
+  --color-muted: #F3F4F6;
+  --color-muted-foreground: #6B7280;
   
-  --color-accent: #00FFC0;
-  --color-accent-foreground: #0A0A0E;
+  --color-accent: #febd69;
+  --color-accent-foreground: #111827;
   
   --color-destructive: #ef4444;
   --color-destructive-foreground: #ffffff;
   
-  --color-border: #2A2A35;
-  --color-input: rgba(255, 255, 255, 0.05);
-  --color-ring: #00FFC0;
+  --color-border: #E5E7EB;
+  --color-input: #E5E7EB;
+  --color-ring: #f3a847;
   
   --radius-sm: 0.25rem;
   --radius-md: 0.5rem;
@@ -43,7 +43,7 @@
 
 /* Global Styles */
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 body {
@@ -63,10 +63,10 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #2A2A35;
+  background: #D1D5DB;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-primary);
+  background: #9CA3AF;
 }
