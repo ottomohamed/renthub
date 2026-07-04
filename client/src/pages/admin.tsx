@@ -25,6 +25,7 @@ export default function Admin() {
   const [users, setUsers] = useState([...USERS]);
   const [editingItem, setEditingItem] = useState<number | null>(null);
   const [newImageUrls, setNewImageUrls] = useState<string>("");
+  const [localImages, setLocalImages] = useState<string[]>([]);
   const { toast } = useToast();
 
   const handleLogin = (e: React.FormEvent) => {
@@ -53,17 +54,20 @@ export default function Admin() {
   };
 
   const handleUpdateImage = (itemId: number) => {
-    if (!newImageUrls) return;
-    
     const urlsArray = newImageUrls.split(',').map(url => url.trim()).filter(url => url);
-    if (urlsArray.length === 0) return;
+    const allImages = [...urlsArray, ...localImages];
+    
+    if (allImages.length === 0) {
+      toast({ title: "Error", description: "Debes proporcionar al menos una imagen.", variant: "destructive" });
+      return;
+    }
 
     // Update global mock DB
-    updateItemImages(itemId, urlsArray);
+    updateItemImages(itemId, allImages);
 
     const updatedItems = items.map(item => {
       if (item.id === itemId) {
-        return { ...item, images: urlsArray };
+        return { ...item, images: allImages };
       }
       return item;
     });
@@ -71,7 +75,26 @@ export default function Admin() {
     setItems(updatedItems);
     setEditingItem(null);
     setNewImageUrls("");
+    setLocalImages([]);
     toast({ title: "Imágenes actualizadas", description: "Se han actualizado las fotos del anuncio con éxito." });
+  };
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const files = Array.from(e.target.files);
+      const fileReaders = files.map(file => {
+        return new Promise<string>((resolve) => {
+          const reader = new FileReader();
+          reader.onloadend = () => resolve(reader.result as string);
+          reader.readAsDataURL(file);
+        });
+      });
+
+      Promise.all(fileReaders).then(base64Images => {
+        setLocalImages(prev => [...prev, ...base64Images]);
+        toast({ title: "Imágenes cargadas", description: `${files.length} imagen(es) preparadas para subir.` });
+      });
+    }
   };
 
   const handleAddModerator = (e: React.FormEvent) => {
@@ -273,26 +296,61 @@ export default function Admin() {
                 <div className="mt-6 bg-white p-6 rounded-lg border border-[#f3a847] shadow-lg animate-in slide-in-from-bottom-4">
                   <div className="flex justify-between items-center mb-4">
                     <h3 className="text-lg font-bold text-gray-900">Actualizar Imágenes del Anuncio #{editingItem}</h3>
-                    <Button variant="ghost" size="sm" onClick={() => setEditingItem(null)}>Cancelar</Button>
+                    <Button variant="ghost" size="sm" onClick={() => { setEditingItem(null); setLocalImages([]); setNewImageUrls(""); }}>Cancelar</Button>
                   </div>
                   <p className="text-sm text-gray-500 mb-4">
-                    Pega las URLs de las nuevas imágenes separadas por comas. Estas sustituirán a las actuales.
+                    Puedes subir imágenes desde tu ordenador o pegar URLs. Estas sustituirán a las fotos actuales.
                   </p>
                   
                   <div className="space-y-4">
+                    <div className="bg-gray-50 p-4 rounded-md border border-dashed border-gray-300">
+                      <Label className="text-sm font-medium mb-2 block cursor-pointer flex flex-col items-center justify-center">
+                        <ImageIcon className="w-8 h-8 text-gray-400 mb-2" />
+                        <span className="text-blue-600 hover:underline">Haz clic para subir imágenes</span>
+                        <span className="text-xs text-gray-500 font-normal mt-1">(PNG, JPG)</span>
+                        <input 
+                          type="file" 
+                          multiple 
+                          accept="image/*" 
+                          className="hidden" 
+                          onChange={handleFileUpload}
+                        />
+                      </Label>
+                    </div>
+
+                    {localImages.length > 0 && (
+                      <div className="flex gap-2 overflow-x-auto py-2">
+                        {localImages.map((img, i) => (
+                          <div key={i} className="relative w-16 h-16 rounded border border-gray-200 overflow-hidden shrink-0">
+                            <img src={img} className="w-full h-full object-cover" alt="Subida" />
+                            <button 
+                              className="absolute top-0 right-0 bg-red-500 text-white w-4 h-4 flex items-center justify-center text-xs"
+                              onClick={() => setLocalImages(localImages.filter((_, idx) => idx !== i))}
+                            >×</button>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
+                    <div className="flex items-center gap-4">
+                      <div className="flex-1 border-t border-gray-200"></div>
+                      <div className="text-xs text-gray-400 font-medium">O USA URLs</div>
+                      <div className="flex-1 border-t border-gray-200"></div>
+                    </div>
+
                     <div>
-                      <Label htmlFor="imageUrls" className="text-sm font-medium mb-1 block">URLs de Imágenes (Una por línea o separadas por comas)</Label>
+                      <Label htmlFor="imageUrls" className="text-sm font-medium mb-1 block">URLs de Imágenes (Separadas por comas)</Label>
                       <textarea 
                         id="imageUrls"
-                        className="w-full min-h-[100px] p-3 border border-gray-300 rounded focus:ring-2 focus:ring-[#f3a847] outline-none text-sm"
+                        className="w-full min-h-[80px] p-3 border border-gray-300 rounded focus:ring-2 focus:ring-[#f3a847] outline-none text-sm"
                         placeholder="https://ejemplo.com/foto1.jpg, https://ejemplo.com/foto2.jpg..."
                         value={newImageUrls}
                         onChange={(e) => setNewImageUrls(e.target.value)}
                       ></textarea>
                     </div>
                     
-                    <div className="flex justify-end gap-3">
-                      <Button variant="outline" onClick={() => setEditingItem(null)}>Cancelar</Button>
+                    <div className="flex justify-end gap-3 pt-2">
+                      <Button variant="outline" onClick={() => { setEditingItem(null); setLocalImages([]); setNewImageUrls(""); }}>Cancelar</Button>
                       <Button className="bg-[#ffd814] hover:bg-[#f7ca00] text-black font-medium border border-[#fcd200]" onClick={() => handleUpdateImage(editingItem)}>
                         Guardar Imágenes
                       </Button>
