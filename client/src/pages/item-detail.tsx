@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Star, Phone, ArrowLeft, MapPin, Calendar, Truck, ShieldCheck, Check, MessageCircle, Mail } from "lucide-react";
 import { Link } from "wouter";
+import { AmazonReviews } from "@/components/AmazonReviews";
 
 export default function ItemDetail() {
   const [, params] = useRoute("/item/:id");
