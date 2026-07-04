@@ -3,10 +3,64 @@ import { Link } from "wouter";
 import { USERS, ITEMS } from "@/lib/mock-db";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Users, LayoutList, TrendingUp, Settings, ArrowLeft } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Users, LayoutList, TrendingUp, Settings, ArrowLeft, Lock } from "lucide-react";
 
 export default function Admin() {
   const [activeTab, setActiveTab] = useState('dashboard');
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (password === "admin123") {
+      setIsAuthenticated(true);
+      setError("");
+    } else {
+      setError("Contraseña incorrecta");
+    }
+  };
+
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4 font-sans">
+        <Card className="w-full max-w-md shadow-lg border-gray-200">
+          <CardHeader className="text-center space-y-2 pt-8">
+            <div className="mx-auto bg-[#f3a847] w-12 h-12 rounded-full flex items-center justify-center mb-2">
+              <Lock className="w-6 h-6 text-black" />
+            </div>
+            <CardTitle className="text-2xl font-medium text-gray-900">Acceso Restringido</CardTitle>
+            <p className="text-gray-500 text-sm">Panel de Control RentHub</p>
+          </CardHeader>
+          <CardContent className="pb-8">
+            <form onSubmit={handleLogin} className="space-y-4">
+              <div className="space-y-2">
+                <Input 
+                  type="password" 
+                  placeholder="Introduce la contraseña" 
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full h-12 text-center text-lg border-gray-300 focus-visible:ring-[#f3a847]"
+                />
+                {error && <p className="text-[#B12704] text-sm text-center">{error}</p>}
+              </div>
+              <Button type="submit" className="w-full h-12 bg-[#ffd814] hover:bg-[#f7ca00] text-black font-medium border border-[#fcd200] shadow-sm rounded-lg text-base">
+                Iniciar Sesión Segura
+              </Button>
+            </form>
+            <div className="mt-8 text-center border-t border-gray-100 pt-6">
+              <Link href="/">
+                <a className="text-[#007185] hover:text-[#c45500] hover:underline text-sm flex items-center justify-center gap-1">
+                  <ArrowLeft className="w-4 h-4" /> Volver a la tienda
+                </a>
+              </Link>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900 font-sans pb-12">
@@ -21,14 +75,19 @@ export default function Admin() {
               </a>
             </Link>
           </div>
-          <div className="text-sm text-gray-300">Hola, SuperUser</div>
+          <div className="flex items-center gap-4">
+            <div className="text-sm text-gray-300">Hola, Creador</div>
+            <Button variant="ghost" className="text-gray-300 hover:text-white hover:bg-white/10" onClick={() => setIsAuthenticated(false)}>
+              Salir
+            </Button>
+          </div>
         </div>
       </header>
 
       <div className="container mx-auto px-4 flex flex-col md:flex-row gap-8 max-w-7xl">
         {/* Sidebar */}
         <div className="w-full md:w-64 space-y-1">
-          <div className="font-bold text-gray-900 mb-4 px-4">Panel de Control</div>
+          <div className="font-bold text-gray-900 mb-4 px-4">Panel Privado</div>
           <Button 
             variant="ghost" 
             className={`w-full justify-start rounded-md ${activeTab === 'dashboard' ? 'bg-[#f3a847]/10 text-[#c45500] font-bold border-l-4 border-[#f3a847]' : 'text-gray-700 hover:bg-gray-100'}`}

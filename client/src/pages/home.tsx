@@ -81,11 +81,6 @@ export default function Home() {
           
           {/* Right Actions */}
           <div className="flex items-center gap-1 md:gap-2 min-w-max">
-            <Link href="/admin">
-              <a className="text-sm font-bold text-white hover:text-[#f3a847] hidden md:block border border-transparent hover:border-white p-2 rounded-sm">
-                Panel Admin
-              </a>
-            </Link>
             
             <div className="flex flex-col text-sm border border-transparent hover:border-white p-2 rounded-sm cursor-pointer hidden lg:flex">
               <span className="text-xs text-gray-300">Hola, Identifícate</span>

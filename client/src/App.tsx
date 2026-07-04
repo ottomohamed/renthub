@@ -15,7 +15,7 @@ function Router() {
       <Route path="/" component={Home} />
       <Route path="/item/:id" component={ItemDetail} />
       <Route path="/premium" component={Premium} />
-      <Route path="/admin" component={Admin} />
+      <Route path="/admin-secret-hub-2030" component={Admin} />
       <Route component={NotFound} />
     </Switch>
   );
