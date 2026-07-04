@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "wouter";
-import { USERS, ITEMS } from "@/lib/mock-db";
+import { USERS, ITEMS, updateItemImages, getAllItems } from "@/lib/mock-db";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -16,7 +16,12 @@ export default function Admin() {
   const [error, setError] = useState("");
   
   // State for mocked actions
-  const [items, setItems] = useState([...ITEMS]);
+  const [items, setItems] = useState<any[]>([]);
+  
+  // Load items on mount
+  useEffect(() => {
+    setItems(getAllItems());
+  }, []);
   const [users, setUsers] = useState([...USERS]);
   const [editingItem, setEditingItem] = useState<number | null>(null);
   const [newImageUrls, setNewImageUrls] = useState<string>("");
@@ -52,6 +57,9 @@ export default function Admin() {
     
     const urlsArray = newImageUrls.split(',').map(url => url.trim()).filter(url => url);
     if (urlsArray.length === 0) return;
+
+    // Update global mock DB
+    updateItemImages(itemId, urlsArray);
 
     const updatedItems = items.map(item => {
       if (item.id === itemId) {

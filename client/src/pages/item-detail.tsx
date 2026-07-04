@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useRoute } from "wouter";
-import { getItemById, getUserById, type Item, type User } from "@/lib/mock-db";
+import { getItemById, getUserById, reloadFromStorage, type Item, type User } from "@/lib/mock-db";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
@@ -16,6 +16,7 @@ export default function ItemDetail() {
 
   useEffect(() => {
     if (params?.id) {
+      reloadFromStorage();
       const foundItem = getItemById(params.id);
       setItem(foundItem || null);
       

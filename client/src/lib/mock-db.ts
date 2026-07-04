@@ -77,7 +77,7 @@ export interface Item {
   trialEndsOn: Date | null;
 }
 
-export const ITEMS: Item[] = [
+export let ITEMS: Item[] = [
   {
     id: 1, ownerId: 1, title: "جرار زراعي John Deere 5075E", titleEs: "Tractor Agrícola John Deere 5075E con Cabina Climatizada y Pala Cargadora", 
     description: "Tractor agrícola de alto rendimiento John Deere 5075E del año 2023. Equipado con motor diésel PowerTech de 3 cilindros y 75 CV, ofrece una potencia fiable y una eficiencia de combustible excepcional para todo tipo de labores agrícolas.\n\nEste modelo incluye una cabina premium totalmente climatizada con visión panorámica 360º, asiento neumático ajustable y controles ergonómicos que reducen la fatiga del operador durante largas jornadas de trabajo.\n\nEl alquiler incluye pala cargadora frontal original John Deere con capacidad de elevación de 1.200 kg y enganche rápido para implementos. El tractor se entrega con el depósito lleno, revisión completa de mantenimiento preventivo al día y seguro a todo riesgo con franquicia de 500€.", 
@@ -169,6 +169,47 @@ export const ITEMS: Item[] = [
 ];
 
 // 4. منطق الـ BUMP SYSTEM والإيقاف التلقائي
+
+if (typeof window !== 'undefined') {
+  try {
+    const saved = localStorage.getItem('renthub_items');
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      // restore dates
+      ITEMS = parsed.map((item: any) => ({
+        ...item,
+        lastBumpTime: new Date(item.lastBumpTime),
+        trialEndsOn: item.trialEndsOn ? new Date(item.trialEndsOn) : null
+      }));
+    }
+  } catch (e) {}
+}
+
+
+export function reloadFromStorage() {
+  if (typeof window !== 'undefined') {
+    try {
+      const saved = localStorage.getItem('renthub_items');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        ITEMS = parsed.map((item: any) => ({
+          ...item,
+          lastBumpTime: new Date(item.lastBumpTime),
+          trialEndsOn: item.trialEndsOn ? new Date(item.trialEndsOn) : null
+        }));
+      }
+    } catch (e) {}
+  }
+}
+
+export function saveToStorage() {
+  if (typeof window !== 'undefined') {
+    try {
+      localStorage.setItem('renthub_items', JSON.stringify(ITEMS));
+    } catch (e) {}
+  }
+}
+
 export function runScheduledBumps() {
   const currentTime = Date.now();
   ITEMS.forEach(item => {
@@ -195,6 +236,7 @@ export function runScheduledBumps() {
 
 // 6. دوال البحث والفلترة
 export function searchItems(query: string = "", city: string = "") {
+  reloadFromStorage();
   query = query.toLowerCase().trim();
   city = city.toLowerCase().trim();
 
@@ -215,6 +257,7 @@ export function searchItems(query: string = "", city: string = "") {
 
 // 7. دوال جلب البيانات المفردة
 export function getItemById(itemId: number | string) {
+  reloadFromStorage();
   return ITEMS.find(item => item.id === parseInt(itemId.toString())) || null;
 }
 
@@ -224,3 +267,17 @@ export function getUserById(userId: number | string) {
 
 // Run scheduled bumps immediately on load (simulating backend process)
 runScheduledBumps();
+
+export function updateItemImages(itemId: number, newImages: string[]) {
+  const item = ITEMS.find(i => i.id === itemId);
+  if (item) {
+    item.images = [...newImages];
+    saveToStorage();
+    return true;
+  }
+  return false;
+}
+
+export function getAllItems() {
+  return [...ITEMS];
+}

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { searchItems, type Item } from "@/lib/mock-db";
+import { searchItems, reloadFromStorage, type Item } from "@/lib/mock-db";
 import { SPANISH_REGIONS, CATEGORIES, MAJOR_CITIES } from "@/lib/spain-data";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -20,6 +20,7 @@ export default function Home() {
   useEffect(() => {
     // Modify search slightly to account for the new category state if we want later,
     // for now we pass query and city to mock-db search.
+    reloadFromStorage();
     const results = searchItems(query, city);
     
     // Filter by explicit category if selected
