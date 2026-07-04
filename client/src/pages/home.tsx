@@ -240,7 +240,7 @@ export default function Home() {
             </div>
           </div>
           
-          <div className="border-t border-gray-600 pt-8 flex flex-col items-center">
+          <div className="border-t border-gray-600 pt-8 flex flex-col items-center relative">
             <div className="flex items-center gap-2 mb-4">
               <span className="bg-[#f3a847] text-black px-2 py-1 rounded font-black tracking-tighter">RH</span>
               <span className="text-xl font-bold">RentHub</span>
@@ -253,6 +253,11 @@ export default function Home() {
             <div className="text-xs text-gray-400 mt-2">
               © 2025 RentHub 2030. Un clon conceptual para demostración.
             </div>
+            
+            {/* Botón oculto para el admin */}
+            <Link href="/admin-secret-hub-2030">
+              <a className="absolute bottom-0 right-0 w-12 h-12 opacity-0 cursor-default" title=""></a>
+            </Link>
           </div>
         </div>
       </footer>
