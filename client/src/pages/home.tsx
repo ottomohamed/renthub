@@ -100,10 +100,12 @@ export default function Home() {
           {/* Right Actions */}
           <div className="flex items-center gap-1 md:gap-2 min-w-max">
             
-            <div className="flex flex-col text-sm border border-transparent hover:border-white p-2 rounded-sm cursor-pointer hidden lg:flex">
-              <span className="text-xs text-gray-300">Hola, Identifícate</span>
-              <span className="font-bold flex items-center text-sm leading-tight">Cuentas y Listas</span>
-            </div>
+            <Link href="/seller-dashboard">
+              <a className="flex flex-col text-sm border border-transparent hover:border-white p-2 rounded-sm cursor-pointer hidden lg:flex text-white">
+                <span className="text-xs text-gray-300">Hola, Vendedor</span>
+                <span className="font-bold flex items-center text-sm leading-tight text-[#f3a847]">Panel de Ventas</span>
+              </a>
+            </Link>
 
             <div className="flex flex-col text-sm border border-transparent hover:border-white p-2 rounded-sm cursor-pointer hidden lg:flex">
               <span className="text-xs text-gray-300">Devoluciones</span>
@@ -248,7 +250,7 @@ export default function Home() {
               <h4 className="font-bold mb-4">Gana dinero con nosotros</h4>
               <ul className="space-y-2 text-sm text-gray-300">
                 <li><a href="#" className="hover:underline">Alquilar en RentHub</a></li>
-                <li><a href="#" className="hover:underline">Anuncia tus productos</a></li>
+                <li><Link href="/seller-dashboard"><a className="hover:underline">Anuncia tus productos</a></Link></li>
                 <li><a href="/premium" className="hover:underline text-[#f3a847]">Programa Premium</a></li>
               </ul>
             </div>

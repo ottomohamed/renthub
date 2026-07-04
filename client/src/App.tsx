@@ -8,6 +8,7 @@ import Home from "@/pages/home";
 import ItemDetail from "@/pages/item-detail";
 import Premium from "@/pages/premium";
 import Admin from "@/pages/admin";
+import OwnerDashboard from "@/pages/owner-dashboard";
 
 function Router() {
   return (
@@ -16,6 +17,7 @@ function Router() {
       <Route path="/item/:id" component={ItemDetail} />
       <Route path="/premium" component={Premium} />
       <Route path="/admin-secret-hub-2030" component={Admin} />
+      <Route path="/seller-dashboard" component={OwnerDashboard} />
       <Route component={NotFound} />
     </Switch>
   );
