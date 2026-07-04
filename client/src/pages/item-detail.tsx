@@ -4,7 +4,7 @@ import { getItemById, getUserById, reloadFromStorage, type Item, type User } fro
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
-import { Star, Phone, ArrowLeft, MapPin, Calendar, Truck, ShieldCheck, Check } from "lucide-react";
+import { Star, Phone, ArrowLeft, MapPin, Calendar, Truck, ShieldCheck, Check, MessageCircle, Mail } from "lucide-react";
 import { Link } from "wouter";
 
 export default function ItemDetail() {
@@ -225,15 +225,37 @@ export default function ItemDetail() {
                     Alquilar ya
                   </Button>
                   
-                  <div className="flex items-center justify-center pt-2">
-                    <Button 
-                      variant="outline"
-                      className="w-full rounded bg-gray-50 hover:bg-gray-100 text-gray-800 border-gray-300 text-sm flex items-center justify-center gap-2 shadow-sm"
-                      onClick={() => window.location.href = `tel:${owner?.phoneNumber}`}
-                    >
-                      <Phone className="w-4 h-4 text-gray-500" />
-                      Contactar al propietario
-                    </Button>
+                  <div className="pt-4 border-t border-gray-100 space-y-2">
+                    <p className="text-xs text-gray-500 mb-2 font-medium">Contactar con el propietario:</p>
+                    <div className="flex gap-2">
+                      <Button 
+                        variant="outline"
+                        className="flex-1 rounded bg-white hover:bg-gray-50 text-gray-800 border-gray-300 h-9"
+                        onClick={() => window.location.href = `tel:${owner?.phoneNumber}`}
+                        title="Llamar por teléfono"
+                      >
+                        <Phone className="w-4 h-4 text-blue-600" />
+                      </Button>
+                      <Button 
+                        variant="outline"
+                        className="flex-1 rounded bg-white hover:bg-gray-50 text-gray-800 border-gray-300 h-9"
+                        onClick={() => {
+                          const msg = `Hola, estoy interesado en el anuncio: ${item.titleEs}`;
+                          window.open(`https://wa.me/${owner?.phoneNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(msg)}`, '_blank');
+                        }}
+                        title="Enviar WhatsApp"
+                      >
+                        <MessageCircle className="w-4 h-4 text-green-600" />
+                      </Button>
+                      <Button 
+                        variant="outline"
+                        className="flex-1 rounded bg-white hover:bg-gray-50 text-gray-800 border-gray-300 h-9"
+                        onClick={() => window.location.href = `mailto:${owner?.email}?subject=Interés en: ${item.titleEs}`}
+                        title="Enviar Correo"
+                      >
+                        <Mail className="w-4 h-4 text-red-600" />
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </div>
