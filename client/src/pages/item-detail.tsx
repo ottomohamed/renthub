@@ -4,7 +4,7 @@ import { getItemById, getUserById, type Item, type User } from "@/lib/mock-db";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
-import { Star, Phone, ArrowRight, MapPin, Calendar } from "lucide-react";
+import { Star, Phone, ArrowLeft, MapPin, Calendar } from "lucide-react";
 import { Link } from "wouter";
 
 export default function ItemDetail() {
@@ -29,7 +29,7 @@ export default function ItemDetail() {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center text-primary">
-        <h1 className="text-2xl font-bold animate-pulse">تحميل...</h1>
+        <h1 className="text-2xl font-bold animate-pulse">Cargando...</h1>
       </div>
     );
   }
@@ -37,9 +37,9 @@ export default function ItemDetail() {
   if (!item) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center gap-4">
-        <h1 className="text-2xl font-bold text-red-500">خطأ: المنتج غير موجود أو غير نشط.</h1>
+        <h1 className="text-2xl font-bold text-red-500">Error: Producto no encontrado o inactivo.</h1>
         <Link href="/">
-          <Button variant="outline">← العودة للصفحة الرئيسية</Button>
+          <Button variant="outline"><ArrowLeft className="mr-2 h-4 w-4"/> Volver al inicio</Button>
         </Link>
       </div>
     );
@@ -49,11 +49,11 @@ export default function ItemDetail() {
     <div className="min-h-screen bg-background text-foreground p-4 md:p-8">
       <div className="container mx-auto max-w-6xl">
         {/* Header Nav */}
-        <header className="flex justify-end py-4 mb-8 border-b border-border/50">
+        <header className="flex justify-start py-4 mb-8 border-b border-border/50">
           <Link href="/">
             <a className="text-primary hover:text-primary/80 flex items-center gap-2 text-lg font-bold transition-colors">
-              <ArrowRight className="w-5 h-5" />
-              العودة للصفحة الرئيسية
+              <ArrowLeft className="w-5 h-5" />
+              Volver al inicio
             </a>
           </Link>
         </header>
@@ -62,29 +62,28 @@ export default function ItemDetail() {
           {/* Main Info */}
           <div className="lg:col-span-2 space-y-8">
             <div>
-              <h1 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">{item.title}</h1>
-              <div className="text-secondary-foreground text-lg mb-2">{item.titleEs}</div>
+              <h1 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">{item.titleEs}</h1>
               
               <div className="text-5xl font-bold text-primary my-6 drop-shadow-[0_0_10px_rgba(0,255,192,0.3)]">
-                {item.pricePerDay} {item.currency} <span className="text-lg text-muted-foreground font-normal">/ يوم</span>
+                {item.pricePerDay} {item.currency} <span className="text-lg text-muted-foreground font-normal">/ día</span>
               </div>
             </div>
 
             <div className="relative aspect-video w-full overflow-hidden rounded-xl border-2 border-primary/30 shadow-2xl shadow-primary/5">
               <img 
                 src={item.images[0]} 
-                alt={item.title} 
+                alt={item.titleEs} 
                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
               />
-              {item.badge?.ar && (
-                <Badge className="absolute top-4 right-4 text-lg py-1 px-3 bg-primary text-background font-bold hover:bg-primary">
-                  {item.badge.ar}
+              {item.badge?.es && (
+                <Badge className="absolute top-4 left-4 text-lg py-1 px-3 bg-primary text-background font-bold hover:bg-primary border-none">
+                  {item.badge.es}
                 </Badge>
               )}
             </div>
 
             <div className="space-y-4">
-              <h3 className="text-2xl font-bold text-primary border-b border-border pb-2">الوصف الكامل</h3>
+              <h3 className="text-2xl font-bold text-primary border-b border-border pb-2">Descripción completa</h3>
               <p className="text-lg text-muted-foreground leading-relaxed whitespace-pre-line">
                 {item.description}
               </p>
@@ -92,7 +91,7 @@ export default function ItemDetail() {
 
             {item.specifications && (
               <div className="space-y-4">
-                <h3 className="text-2xl font-bold text-primary border-b border-border pb-2">المواصفات الفنية</h3>
+                <h3 className="text-2xl font-bold text-primary border-b border-border pb-2">Especificaciones Técnicas</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {Object.entries(item.specifications).map(([key, value]) => (
                     <div key={key} className="bg-white/5 backdrop-blur-sm p-4 rounded-lg border border-white/10 flex justify-between items-center">
@@ -109,13 +108,13 @@ export default function ItemDetail() {
           <div className="lg:col-span-1">
             <Card className="p-6 bg-card border-border shadow-xl sticky top-8">
               <h3 className="text-xl font-bold text-foreground border-b-2 border-primary pb-3 mb-6">
-                بيانات المالك
+                Datos del Propietario
               </h3>
               
               <div className="space-y-6">
                 <div>
-                  <p className="text-muted-foreground text-sm mb-1">الاسم</p>
-                  <p className="text-xl font-bold">{owner ? owner.name : 'N/A'}</p>
+                  <p className="text-muted-foreground text-sm mb-1">Nombre</p>
+                  <p className="text-xl font-bold">{owner ? owner.nameEs : 'N/A'}</p>
                 </div>
 
                 <div>
@@ -124,7 +123,7 @@ export default function ItemDetail() {
                     {owner ? owner.ratingAvg : 'N/A'}
                   </div>
                   <p className="text-muted-foreground text-sm">
-                    ({owner ? owner.totalRatings : 0} تقييم)
+                    ({owner ? owner.totalRatings : 0} valoraciones)
                   </p>
                 </div>
 
@@ -135,7 +134,7 @@ export default function ItemDetail() {
                   </div>
                   <div className="flex items-center gap-3 text-muted-foreground">
                     <Calendar className="w-5 h-5 text-primary" />
-                    <span>عضو منذ: {owner ? owner.memberSince : 'N/A'}</span>
+                    <span>Miembro desde: {owner ? owner.memberSince : 'N/A'}</span>
                   </div>
                 </div>
 
@@ -144,11 +143,11 @@ export default function ItemDetail() {
                   onClick={() => window.location.href = `tel:${owner?.phoneNumber}`}
                 >
                   <Phone className="mr-2 w-5 h-5" />
-                  اتصل بالمالك
+                  Llamar al Propietario
                 </Button>
                 
                 {owner && (
-                  <p className="text-center text-xs text-muted-foreground mt-2 dir-ltr">
+                  <p className="text-center text-xs text-muted-foreground mt-2">
                     {owner.phoneNumber}
                   </p>
                 )}

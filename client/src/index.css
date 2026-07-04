@@ -50,7 +50,7 @@ body {
   background-color: var(--color-background);
   color: var(--color-foreground);
   font-family: var(--font-sans);
-  direction: rtl; /* Enforce RTL globally as requested */
+  direction: ltr;
 }
 
 /* Custom Scrollbar */

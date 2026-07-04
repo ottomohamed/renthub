@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Star, MapPin, Zap, Search } from "lucide-react";
 import { Link, useLocation } from "wouter";
+import { AnnouncementBanner } from "@/components/AnnouncementBanner";
 
 export default function Home() {
   const [query, setQuery] = useState("");
@@ -20,7 +21,9 @@ export default function Home() {
   }, [query, city]);
 
   return (
-    <div className="min-h-screen bg-background text-foreground font-sans" dir="rtl">
+    <div className="min-h-screen bg-background text-foreground font-sans">
+      <AnnouncementBanner />
+      
       {/* Header */}
       <header className="border-b border-border sticky top-0 z-10 bg-background/80 backdrop-blur-md">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
@@ -31,8 +34,8 @@ export default function Home() {
           </div>
           
           <div className="flex gap-4">
-            <Button variant="outline" className="border-primary/50 text-primary hover:bg-primary hover:text-background">تسجيل الدخول</Button>
-            <Button className="bg-primary text-background hover:bg-primary/90 font-bold">➕ أضف إعلانك والدفع</Button>
+            <Button variant="outline" className="border-primary/50 text-primary hover:bg-primary hover:text-background">Iniciar sesión</Button>
+            <Button className="bg-primary text-background hover:bg-primary/90 font-bold">➕ Publicar Anuncio</Button>
           </div>
         </div>
       </header>
@@ -42,18 +45,18 @@ export default function Home() {
         <div className="absolute inset-0 bg-primary/5 -z-10"></div>
         <div className="container mx-auto max-w-4xl space-y-6">
           <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-2">
-            ابحث عن المعدات، الأدوات والمركبات للإيجار
+            Encuentra maquinaria, herramientas y vehículos
           </h1>
           <p className="text-muted-foreground text-xl max-w-2xl mx-auto">
-            استأجر من الأفراد والشركات الموثوقة الآن في إسبانيا.
+            Alquila de particulares y empresas de confianza ahora en España.
           </p>
           
           <div className="bg-white/5 border border-primary/30 backdrop-blur-xl p-4 rounded-xl shadow-2xl mt-12 flex flex-col md:flex-row gap-4 max-w-3xl mx-auto">
             <div className="relative flex-1">
-              <Search className="absolute right-3 top-3 h-5 w-5 text-muted-foreground" />
+              <Search className="absolute left-3 top-3 h-5 w-5 text-muted-foreground" />
               <Input 
-                placeholder="ابحث باسم المنتج أو الفئة..." 
-                className="pr-10 text-right bg-transparent border-none focus-visible:ring-0 text-lg placeholder:text-muted-foreground/50"
+                placeholder="Buscar por producto o categoría..." 
+                className="pl-10 bg-transparent border-none focus-visible:ring-0 text-lg placeholder:text-muted-foreground/50"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 data-testid="input-search"
@@ -61,89 +64,87 @@ export default function Home() {
             </div>
             <div className="w-px bg-primary/20 hidden md:block"></div>
             <div className="relative flex-1">
-              <MapPin className="absolute right-3 top-3 h-5 w-5 text-muted-foreground" />
+              <MapPin className="absolute left-3 top-3 h-5 w-5 text-muted-foreground" />
               <select 
-                className="w-full h-10 bg-transparent text-right pr-10 outline-none text-foreground cursor-pointer appearance-none"
+                className="w-full h-10 bg-transparent pl-10 outline-none text-foreground cursor-pointer appearance-none"
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
                 data-testid="select-city"
               >
-                <option value="" className="bg-card">جميع المدن</option>
-                <option value="Madrid" className="bg-card">مدريد</option>
-                <option value="Barcelona" className="bg-card">برشلونة</option>
-                <option value="Valencia" className="bg-card">فالنسيا</option>
-                <option value="Sevilla" className="bg-card">إشبيلية</option>
+                <option value="" className="bg-card">Todas las ciudades</option>
+                <option value="Madrid" className="bg-card">Madrid</option>
+                <option value="Barcelona" className="bg-card">Barcelona</option>
+                <option value="Valencia" className="bg-card">Valencia</option>
+                <option value="Sevilla" className="bg-card">Sevilla</option>
               </select>
             </div>
-            <Button className="md:w-32 h-12 text-lg font-bold bg-primary text-background hover:bg-primary/90" onClick={() => {}}>بحث 🔍</Button>
+            <Button className="bg-primary text-background hover:bg-primary/90 font-bold px-8 w-full md:w-auto">
+              Buscar
+            </Button>
           </div>
         </div>
       </section>
 
-      {/* Listings Grid */}
+      {/* Main Content */}
       <main className="container mx-auto px-4 py-12">
-        <div className="flex justify-between items-center mb-8 border-b border-border pb-4">
-          <h2 className="text-2xl font-bold text-foreground flex items-center gap-2">
-            الإعلانات المميزة 
-            <span className="text-xs font-normal text-muted-foreground bg-white/5 px-2 py-1 rounded-full">(Bumped Items)</span>
+        <div className="flex justify-between items-center mb-8">
+          <h2 className="text-2xl font-bold text-foreground">
+            Resultados ({items.length})
           </h2>
-          <span className="text-muted-foreground">{items.length} نتيجة</span>
+          <Link href="/premium">
+            <a className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border bg-transparent shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2 border-primary/50 text-primary hover:bg-primary gap-2">
+              <Zap className="w-4 h-4" /> Destacar mi anuncio
+            </a>
+          </Link>
         </div>
 
         {items.length === 0 ? (
-          <div className="text-center py-12 text-muted-foreground">
-            <p className="text-xl">لا توجد نتائج مطابقة لبحثك</p>
-            <Button variant="link" className="text-primary" onClick={() => {setQuery(""); setCity("")}}>عرض كل الإعلانات</Button>
+          <div className="text-center py-20 bg-white/5 rounded-xl border border-white/10">
+            <Search className="mx-auto h-12 w-12 text-muted-foreground mb-4 opacity-50" />
+            <h3 className="text-xl font-bold text-foreground mb-2">No se encontraron resultados</h3>
+            <p className="text-muted-foreground">Prueba a buscar con otras palabras o cambiar de ciudad.</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {items.map((item) => (
               <Card 
                 key={item.id} 
-                className="overflow-hidden bg-card border-border hover:-translate-y-2 hover:shadow-2xl hover:shadow-primary/10 transition-all duration-300 group cursor-pointer" 
-                data-testid={`card-product-${item.id}`}
+                className="bg-card border-border overflow-hidden hover:border-primary/50 transition-all duration-300 hover:shadow-[0_0_15px_rgba(0,255,192,0.15)] group cursor-pointer"
                 onClick={() => setLocation(`/item/${item.id}`)}
+                data-testid={`card-item-${item.id}`}
               >
-                <div className="relative aspect-video overflow-hidden">
+                <div className="relative aspect-[4/3] overflow-hidden">
                   <img 
                     src={item.images[0]} 
-                    alt={item.title}
-                    className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-500"
+                    alt={item.titleEs} 
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-60"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent"></div>
                   
-                  {item.badge?.ar && (
-                    <Badge className="absolute top-3 right-3 bg-primary text-background font-bold border-none hover:bg-primary">
-                      {item.badge.ar}
+                  {item.badge?.es && (
+                    <Badge className="absolute top-3 left-3 bg-primary text-background font-bold border-none">
+                      {item.badge.es}
                     </Badge>
                   )}
                   
-                  <div className="absolute bottom-3 left-3">
-                    <div className="text-2xl font-bold text-white drop-shadow-md">
-                      {item.pricePerDay} {item.currency}
-                    </div>
+                  <div className="absolute bottom-3 right-3 bg-background/90 backdrop-blur text-foreground px-2 py-1 rounded-md font-bold border border-primary/20 text-sm">
+                    {item.pricePerDay} {item.currency} <span className="text-[10px] text-muted-foreground font-normal">/día</span>
                   </div>
-
-                  {item.isActive && (
-                     <div className="absolute top-3 left-3 bg-black/50 backdrop-blur px-2 py-1 rounded text-xs text-primary font-mono border border-primary/20">
-                        ID: {item.id}
-                     </div>
-                  )}
                 </div>
                 
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-lg font-bold line-clamp-1 text-foreground group-hover:text-primary transition-colors" title={item.title}>
-                    {item.title}
-                  </CardTitle>
-                  <p className="text-sm text-muted-foreground line-clamp-1">{item.titleEs}</p>
+                <CardHeader className="p-4 pb-2">
+                  <div className="flex justify-between items-start gap-2">
+                    <CardTitle className="text-lg line-clamp-2 leading-tight group-hover:text-primary transition-colors">
+                      {item.titleEs}
+                    </CardTitle>
+                  </div>
+                  <div className="flex items-center gap-1 text-xs text-muted-foreground mt-1">
+                    <MapPin className="h-3 w-3" />
+                    {item.city}
+                  </div>
                 </CardHeader>
                 
-                <CardContent className="pb-4">
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground mb-3">
-                    <MapPin className="h-4 w-4 text-primary" />
-                    <span>{item.city}, {item.country}</span>
-                  </div>
-                  
+                <CardContent className="p-4 pt-0">
                   {/* Bump Bar Indicator */}
                   <div className="flex items-center gap-2 mt-2">
                     <div className="text-[10px] text-muted-foreground w-8">Bump</div>
@@ -165,9 +166,9 @@ export default function Home() {
                     <span className="text-xs text-muted-foreground">({item.totalReviews})</span>
                   </div>
                   
-                  <div className="flex items-center gap-2 text-xs text-muted-foreground" title="آخر تحديث (Bump)">
+                  <div className="flex items-center gap-2 text-xs text-muted-foreground" title="Última actualización (Bump)">
                     <Zap className="h-3 w-3 text-primary" />
-                    <span>منذ {Math.floor((Date.now() - new Date(item.lastBumpTime).getTime()) / 3600000)} ساعة</span>
+                    <span>hace {Math.floor((Date.now() - new Date(item.lastBumpTime).getTime()) / 3600000)}h</span>
                   </div>
                 </CardFooter>
               </Card>
@@ -179,15 +180,15 @@ export default function Home() {
       <footer className="bg-card border-t border-border py-12 mt-12">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-2xl font-bold text-primary mb-4 drop-shadow-[0_0_5px_rgba(0,255,192,0.5)]">RentHub 2030</h2>
-          <p className="mb-8 max-w-lg mx-auto text-muted-foreground">المنصة الرائدة لتأجير المعدات في إسبانيا. نوصل الملاك بالمستأجرين بسهولة وأمان.</p>
+          <p className="mb-8 max-w-lg mx-auto text-muted-foreground">La plataforma líder de alquiler de maquinaria en España. Conectamos propietarios con arrendatarios de forma fácil y segura.</p>
           <div className="flex justify-center gap-6 text-sm">
-            <a href="#" className="text-foreground hover:text-primary transition-colors">عن المنصة</a>
-            <a href="#" className="text-foreground hover:text-primary transition-colors">كيف تعمل</a>
-            <a href="#" className="text-foreground hover:text-primary transition-colors">الأسعار</a>
-            <a href="#" className="text-foreground hover:text-primary transition-colors">اتصل بنا</a>
+            <a href="#" className="text-foreground hover:text-primary transition-colors">Sobre nosotros</a>
+            <a href="#" className="text-foreground hover:text-primary transition-colors">Cómo funciona</a>
+            <a href="#" className="text-foreground hover:text-primary transition-colors">Precios</a>
+            <a href="#" className="text-foreground hover:text-primary transition-colors">Contacto</a>
           </div>
           <div className="mt-8 pt-8 border-t border-white/5 text-xs text-muted-foreground">
-            © 2025 RentHub 2030. جميع الحقوق محفوظة.
+            © 2025 RentHub 2030. Todos los derechos reservados.
           </div>
         </div>
       </footer>

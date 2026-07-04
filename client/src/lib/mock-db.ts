@@ -13,9 +13,9 @@ export interface SubscriptionPlan {
 }
 
 export const SUBSCRIPTION_PLANS: Record<string, SubscriptionPlan> = {
-  'GOLD': { name: 'ذهبية', price: 59, bumpFrequencyHours: 1, maxListings: Infinity },
-  'SILVER': { name: 'فضية', price: 29, bumpFrequencyHours: 12, maxListings: 100 },
-  'BRONZE': { name: 'نحاسية', price: 9, bumpFrequencyHours: 24, maxListings: 50 }
+  'GOLD': { name: 'Oro', price: 59, bumpFrequencyHours: 1, maxListings: Infinity },
+  'SILVER': { name: 'Plata', price: 29, bumpFrequencyHours: 12, maxListings: 100 },
+  'BRONZE': { name: 'Bronce', price: 9, bumpFrequencyHours: 24, maxListings: 50 }
 };
 
 export interface User {
@@ -68,7 +68,7 @@ export interface Item {
   images: string[];
   rating: number;
   totalReviews: number;
-  badge?: { ar: string };
+  badge?: { es: string };
   specifications?: Record<string, string>;
   lastBumpTime: Date;
   isActive: boolean;
@@ -77,24 +77,24 @@ export interface Item {
 
 export const ITEMS: Item[] = [
   {
-    id: 1, ownerId: 1, title: "جرار زراعي John Deere 5075E", titleEs: "Tractor Agrícola John Deere 5075E", description: "جرار زراعي قوي من John Deere، مثالي للأراضي الكبيرة...", category: "heavy", pricePerDay: 250, currency: "€", city: "Madrid", country: "España", available: true, images: ["https://images.unsplash.com/photo-1530267981375-27347747084d?q=80&w=2960&auto=format&fit=crop"], rating: 4.9, totalReviews: 38, badge: { ar: "الأكثر طلباً" }, specifications: { power: "75 HP" },
+    id: 1, ownerId: 1, title: "جرار زراعي John Deere 5075E", titleEs: "Tractor Agrícola John Deere 5075E", description: "Potente tractor agrícola de John Deere, ideal para terrenos extensos...", category: "heavy", pricePerDay: 250, currency: "€", city: "Madrid", country: "España", available: true, images: ["https://images.unsplash.com/photo-1530267981375-27347747084d?q=80&w=2960&auto=format&fit=crop"], rating: 4.9, totalReviews: 38, badge: { es: "Más solicitado" }, specifications: { power: "75 HP" },
     lastBumpTime: new Date(Date.now() - 3600000 * 2), isActive: true, trialEndsOn: null
   },
   {
-    id: 2, ownerId: 2, title: "مثقاب كهربائي Bosch Professional GSB 18V", titleEs: "Taladro Eléctrico Bosch Professional GSB 18V", description: "مثقاب احترافي من Bosch بقوة 18 فولت، مثالي لجميع أعمال الحفر والثقب...", category: "tools", pricePerDay: 15, currency: "€", city: "Barcelona", country: "España", available: true, images: ["https://images.unsplash.com/photo-1504148455328-c376907d081c?q=80&w=2978&auto=format&fit=crop"], rating: 4.8, totalReviews: 124, badge: { ar: "موصى به" },
+    id: 2, ownerId: 2, title: "مثقاب كهربائي Bosch Professional GSB 18V", titleEs: "Taladro Eléctrico Bosch Professional GSB 18V", description: "Taladro profesional Bosch 18V, ideal para todo tipo de perforaciones...", category: "tools", pricePerDay: 15, currency: "€", city: "Barcelona", country: "España", available: true, images: ["https://images.unsplash.com/photo-1504148455328-c376907d081c?q=80&w=2978&auto=format&fit=crop"], rating: 4.8, totalReviews: 124, badge: { es: "Recomendado" },
     lastBumpTime: new Date(Date.now() - 3600000 * 25), isActive: true, trialEndsOn: null
   },
   {
-    id: 3, ownerId: 3, title: "Tesla Model 3 Long Range 2023", titleEs: "Tesla Model 3 Long Range 2023", description: "سيارة كهربائية فاخرة Tesla Model 3 موديل 2023. مدى يصل إلى 580 كم، قيادة ذاتية...", category: "car", pricePerDay: 80, currency: "€", city: "Valencia", country: "España", available: true, images: ["https://images.unsplash.com/photo-1560958089-b8a1929cea89?q=80&w=2971&auto=format&fit=crop"], rating: 5.0, totalReviews: 89, badge: { ar: "جديد" }, specifications: { range: "580km" },
+    id: 3, ownerId: 3, title: "Tesla Model 3 Long Range 2023", titleEs: "Tesla Model 3 Long Range 2023", description: "Vehículo eléctrico premium Tesla Model 3 (2023). Hasta 580 km de autonomía, conducción autónoma...", category: "car", pricePerDay: 80, currency: "€", city: "Valencia", country: "España", available: true, images: ["https://images.unsplash.com/photo-1560958089-b8a1929cea89?q=80&w=2971&auto=format&fit=crop"], rating: 5.0, totalReviews: 89, badge: { es: "Nuevo" }, specifications: { range: "580km" },
     lastBumpTime: new Date(Date.now() - 3600000 * 1), isActive: true, trialEndsOn: null
   },
   {
-    id: 4, ownerId: 4, title: "خيمة احترافية للمناسبات 10x10 متر", titleEs: "Carpa Profesional para Eventos 10x10 metros", description: "خيمة كبيرة احترافية مثالية للأفراح والمناسبات...", category: "events", pricePerDay: 120, currency: "€", city: "Sevilla", country: "España", available: true, images: ["https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?q=80&w=2970&auto=format&fit=crop"], rating: 4.7, totalReviews: 56, badge: { ar: "عرض خاص" }, specifications: { size: "10x10m" },
+    id: 4, ownerId: 4, title: "خيمة احترافية للمناسبات 10x10 متر", titleEs: "Carpa Profesional para Eventos 10x10 metros", description: "Carpa profesional grande, perfecta para bodas y eventos especiales...", category: "events", pricePerDay: 120, currency: "€", city: "Sevilla", country: "España", available: true, images: ["https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?q=80&w=2970&auto=format&fit=crop"], rating: 4.7, totalReviews: 56, badge: { es: "Oferta especial" }, specifications: { size: "10x10m" },
     lastBumpTime: new Date(Date.now() - 3600000 * 10), isActive: true, trialEndsOn: null
   },
   // إعلان تجريبي
   {
-    id: 5, ownerId: 4, title: "رافع كهربائي صغير (تجريبي)", titleEs: "Mini Elevador Eléctrico (Prueba)", description: "رافع كهربائي مثالي لأعمال الصيانة المنزلية...", category: "tools", pricePerDay: 40, currency: "€", city: "Sevilla", country: "España", available: true, images: ["https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2970&auto=format&fit=crop"], rating: 4.5, totalReviews: 0, badge: { ar: "تجريبي" }, specifications: { power: "2KW", height: "3m" },
+    id: 5, ownerId: 4, title: "رافع كهربائي صغير (تجريبي)", titleEs: "Mini Elevador Eléctrico (Prueba)", description: "Elevador eléctrico ideal para mantenimiento del hogar...", category: "tools", pricePerDay: 40, currency: "€", city: "Sevilla", country: "España", available: true, images: ["https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2970&auto=format&fit=crop"], rating: 4.5, totalReviews: 0, badge: { es: "Prueba" }, specifications: { power: "2KW", height: "3m" },
     lastBumpTime: new Date(), isActive: true,
     trialEndsOn: new Date(Date.now() + 3600000 * 0.5)
   }
