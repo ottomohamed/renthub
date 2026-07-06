@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import { useRoute } from "wouter";
-import { getItemById, getUserById, reloadFromStorage, type Item, type User } from "@/lib/mock-db";
+import { getItemById, getUserById, reloadFromStorage, getAllItems, type Item, type User } from "@/lib/mock-db";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Star, Phone, ArrowLeft, MapPin, Calendar, Truck, ShieldCheck, Check, MessageCircle, Mail } from "lucide-react";
 import { Link } from "wouter";
 import { AmazonReviews } from "@/components/AmazonReviews";
+import { SponsoredCarousel } from "@/components/SponsoredCarousel";
 
 export default function ItemDetail() {
   const [, params] = useRoute("/item/:id");
@@ -291,6 +292,12 @@ export default function ItemDetail() {
               {item.description}
             </div>
           </div>
+
+          <SponsoredCarousel 
+            items={getAllItems().filter(i => i.isPromoted && i.id !== item.id).slice(0, 8)} 
+          />
+
+          <AmazonReviews rating={item.rating} totalReviews={item.totalReviews} />
         </div>
       </div>
     </div>

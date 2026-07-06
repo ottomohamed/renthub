@@ -5,9 +5,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Star, MapPin, Search, Menu, ShoppingCart, Info } from "lucide-react";
+import { Star, MapPin, Search, Menu, ShoppingCart, Info, ChevronRight } from "lucide-react";
 import { Link, useLocation } from "wouter";
 import { AnnouncementBanner } from "@/components/AnnouncementBanner";
+import { SponsoredCarousel } from "@/components/SponsoredCarousel";
 
 export default function Home() {
   const [query, setQuery] = useState("");
@@ -144,6 +145,14 @@ export default function Home() {
 
       {/* Main Content */}
       <main className="container mx-auto px-4 py-6 bg-gray-50 dark:bg-background min-h-[calc(100vh-200px)]">
+        
+        {/* Amazon-style Sponsored Carousel */}
+        {items.some(i => i.isPromoted) && (
+          <div className="mb-6 bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
+            <SponsoredCarousel items={items.filter(i => i.isPromoted)} title="Anuncios Patrocinados Destacados" />
+          </div>
+        )}
+
         <div className="flex justify-between items-end mb-4 border-b border-gray-200 pb-2">
           <h2 className="text-xl font-bold text-gray-900">
             {category ? `Resultados en: ${CATEGORIES.find(c => c.id === category)?.name}` : 'Resultados Destacados de Maquinaria y Equipamiento'}
