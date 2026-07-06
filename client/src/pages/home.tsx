@@ -45,14 +45,14 @@ export default function Home() {
       <AnnouncementBanner />
       
       {/* Amazon-style Header */}
-      <header className="bg-[#131921] text-white sticky top-0 z-20">
+      <header className="bg-[#1B2A41] text-white sticky top-0 z-20">
         <div className="container mx-auto px-2 py-2 flex items-center justify-between gap-2 flex-wrap md:flex-nowrap">
           {/* Logo & Location */}
           <div className="flex items-center gap-4 min-w-max">
             <Menu className="w-6 h-6 md:hidden ml-2" />
             <Link href="/">
               <a className="text-xl md:text-2xl font-bold text-white hover:text-primary transition-colors flex items-center gap-1 border border-transparent hover:border-white p-1 rounded-sm">
-                <span className="bg-[#f3a847] text-black px-2 py-1 rounded font-black tracking-tighter">RH</span>
+                <span className="bg-[#E85A2A] text-black px-2 py-1 rounded font-black tracking-tighter">RH</span>
                 <span className="tracking-tight">RentHub</span>
               </a>
             </Link>
@@ -88,13 +88,13 @@ export default function Home() {
             <div className="relative flex-1">
               <Input 
                 placeholder="Buscar maquinaria, herramientas, vehículos..." 
-                className="w-full bg-white text-black border-none md:rounded-none rounded-l-md focus-visible:ring-2 focus-visible:ring-[#f3a847] h-10 px-4 text-base"
+                className="w-full bg-white text-black border-none md:rounded-none rounded-l-md focus-visible:ring-2 focus-visible:ring-[#E85A2A] h-10 px-4 text-base"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 data-testid="input-search"
               />
             </div>
-            <Button className="bg-[#febd69] hover:bg-[#f3a847] text-black border-none rounded-none rounded-r-md h-10 px-5">
+            <Button className="bg-[#FF6B35] hover:bg-[#E85A2A] text-black border-none rounded-none rounded-r-md h-10 px-5">
               <Search className="h-5 w-5" />
             </Button>
           </div>
@@ -115,21 +115,21 @@ export default function Home() {
             </div>
             
             <Link href="/premium">
-              <Button className="bg-[#f3a847] text-black hover:bg-[#febd69] font-bold hidden sm:flex h-9 shadow-[0_0_5px_rgba(243,168,71,0.3)] ml-2">
+              <Button className="bg-[#E85A2A] text-black hover:bg-[#FF6B35] font-bold hidden sm:flex h-9 shadow-[0_0_5px_rgba(232,90,42,0.3)] ml-2">
                 Destacar Anuncio
               </Button>
             </Link>
             
             <div className="flex items-end border border-transparent hover:border-white p-2 rounded-sm cursor-pointer relative ml-2">
               <ShoppingCart className="h-8 w-8" />
-              <span className="absolute top-0 right-2 md:right-4 text-[#f3a847] font-bold text-lg leading-none">0</span>
+              <span className="absolute top-0 right-2 md:right-4 text-[#E85A2A] font-bold text-lg leading-none">0</span>
               <span className="font-bold text-sm hidden md:block mt-auto">Cesta</span>
             </div>
           </div>
         </div>
         
         {/* Amazon Sub-nav */}
-        <div className="bg-[#232f3e] px-4 py-2 text-sm flex gap-4 overflow-x-auto whitespace-nowrap hide-scrollbar">
+        <div className="bg-[#10192B] px-4 py-2 text-sm flex gap-4 overflow-x-auto whitespace-nowrap hide-scrollbar">
           <a href="#" className="flex items-center gap-1 font-bold hover:text-white border border-transparent hover:border-white px-2 rounded-sm" onClick={(e) => { e.preventDefault(); setCategory(""); }}><Menu className="w-4 h-4"/> Todo</a>
           {CATEGORIES.map(cat => (
             <a 
@@ -201,19 +201,19 @@ export default function Home() {
                   )}
 
                   <CardHeader className="p-0 mb-2">
-                    <CardTitle className="text-lg md:text-xl font-medium line-clamp-2 leading-tight text-[#007185] group-hover:text-[#c45500] group-hover:underline transition-colors">
+                    <CardTitle className="text-lg md:text-xl font-medium line-clamp-2 leading-tight text-[#2563EB] group-hover:text-[#EA580C] group-hover:underline transition-colors">
                       {item.titleEs}
                     </CardTitle>
                   </CardHeader>
                   
                   <CardContent className="p-0 flex-1">
                     <div className="flex items-center gap-1 mb-3">
-                      <div className="flex text-[#ffa41c]">
+                      <div className="flex text-[#FBBF24]">
                         {[...Array(5)].map((_, i) => (
                           <Star key={i} className={`h-4 w-4 ${i < Math.floor(item.rating) ? 'fill-current' : 'text-gray-300'}`} />
                         ))}
                       </div>
-                      <span className="text-[#007185] group-hover:text-[#c45500] group-hover:underline text-sm ml-1">
+                      <span className="text-[#2563EB] group-hover:text-[#EA580C] group-hover:underline text-sm ml-1">
                         {item.totalReviews}
                       </span>
                     </div>
@@ -225,7 +225,7 @@ export default function Home() {
                     </div>
                     
                     {item.available && (
-                      <div className="text-xs md:text-sm text-[#007600] font-bold mt-2">
+                      <div className="text-xs md:text-sm text-[#16A34A] font-bold mt-2">
                         Entrega Disponible
                       </div>
                     )}
@@ -250,7 +250,7 @@ export default function Home() {
         )}
       </main>
       
-      <footer className="bg-[#232f3e] text-white pt-10 pb-6 mt-auto">
+      <footer className="bg-[#10192B] text-white pt-10 pb-6 mt-auto">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-10 max-w-5xl mx-auto">
             <div>
@@ -266,7 +266,7 @@ export default function Home() {
               <ul className="space-y-2 text-sm text-gray-300">
                 <li><a href="#" className="hover:underline">Alquilar en RentHub</a></li>
                 <li><Link href="/seller-dashboard"><a className="hover:underline">Anuncia tus productos</a></Link></li>
-                <li><a href="/premium" className="hover:underline text-[#f3a847]">Programa Premium</a></li>
+                <li><a href="/premium" className="hover:underline text-[#E85A2A]">Programa Premium</a></li>
               </ul>
             </div>
             <div>
@@ -282,7 +282,7 @@ export default function Home() {
           
           <div className="border-t border-gray-600 pt-8 flex flex-col items-center relative">
             <div className="flex items-center gap-2 mb-4">
-              <span className="bg-[#f3a847] text-black px-2 py-1 rounded font-black tracking-tighter">RH</span>
+              <span className="bg-[#E85A2A] text-black px-2 py-1 rounded font-black tracking-tighter">RH</span>
               <span className="text-xl font-bold">RentHub</span>
             </div>
             <div className="flex flex-wrap justify-center gap-x-4 gap-y-2 text-xs text-gray-400">

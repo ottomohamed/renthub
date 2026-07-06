@@ -12,12 +12,12 @@ export default function Premium() {
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900 font-sans pb-16">
       {/* Header */}
-      <header className="bg-[#131921] text-white p-4 sticky top-0 z-20 shadow-md">
+      <header className="bg-[#1B2A41] text-white p-4 sticky top-0 z-20 shadow-md">
         <div className="container mx-auto flex items-center justify-between">
           <Link href="/">
-            <a className="text-xl font-bold text-white hover:text-[#f3a847] transition-colors flex items-center gap-1">
-              <span className="bg-[#f3a847] text-black px-2 py-1 rounded font-black tracking-tighter">RH</span>
-              <span className="tracking-tight">RentHub <span className="text-xs font-normal align-top text-[#f3a847] ml-1">PREMIUM</span></span>
+            <a className="text-xl font-bold text-white hover:text-[#E85A2A] transition-colors flex items-center gap-1">
+              <span className="bg-[#E85A2A] text-black px-2 py-1 rounded font-black tracking-tighter">RH</span>
+              <span className="tracking-tight">RentHub <span className="text-xs font-normal align-top text-[#E85A2A] ml-1">PREMIUM</span></span>
             </a>
           </Link>
           <Link href="/seller-dashboard">
@@ -29,12 +29,12 @@ export default function Premium() {
       {/* Hero Section */}
       <div className="bg-white border-b border-gray-200">
         <div className="container mx-auto px-4 py-12 max-w-5xl text-center">
-          <Badge className="bg-[#f3a847] text-black hover:bg-[#febd69] border-[#fcd200] mb-4 text-xs font-bold px-3 py-1">
+          <Badge className="bg-[#E85A2A] text-black hover:bg-[#FF6B35] border-[#fcd200] mb-4 text-xs font-bold px-3 py-1">
             Impulsa tus ventas
           </Badge>
           <h1 className="text-4xl md:text-5xl font-bold mb-4">Llega a más clientes, alquila más rápido.</h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-8">
-            Los anunciantes Premium reciben hasta <span className="font-bold text-[#c45500]">3 veces más contactos</span> que los anunciantes gratuitos. Elige el plan que mejor se adapte a tu negocio.
+            Los anunciantes Premium reciben hasta <span className="font-bold text-[#EA580C]">3 veces más contactos</span> que los anunciantes gratuitos. Elige el plan que mejor se adapte a tu negocio.
           </p>
         </div>
       </div>
@@ -71,12 +71,12 @@ export default function Premium() {
           </Card>
 
           {/* Plan Pro / Plata */}
-          <Card className="border-2 border-[#007185] shadow-lg relative transform md:-translate-y-4 bg-white">
-            <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#007185] text-white px-4 py-1 rounded-full text-xs font-bold whitespace-nowrap">
+          <Card className="border-2 border-[#2563EB] shadow-lg relative transform md:-translate-y-4 bg-white">
+            <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#2563EB] text-white px-4 py-1 rounded-full text-xs font-bold whitespace-nowrap">
               El más popular
             </div>
             <CardHeader className="text-center pb-2 pt-8">
-              <CardTitle className="text-2xl font-bold text-[#007185]">Profesional</CardTitle>
+              <CardTitle className="text-2xl font-bold text-[#2563EB]">Profesional</CardTitle>
               <div className="text-4xl font-bold mt-4 mb-1">29€ <span className="text-base font-normal text-gray-500">/ mes</span></div>
             </CardHeader>
             <CardContent>
@@ -105,34 +105,34 @@ export default function Premium() {
           </Card>
 
           {/* Plan Empresa / Oro */}
-          <Card className="border-2 border-[#f3a847] shadow-lg relative bg-gradient-to-b from-[#fff8e1] to-white">
+          <Card className="border-2 border-[#E85A2A] shadow-lg relative bg-gradient-to-b from-[#fff8e1] to-white">
             <CardHeader className="text-center pb-2">
-              <CardTitle className="text-2xl font-bold text-[#c45500]">Empresa</CardTitle>
+              <CardTitle className="text-2xl font-bold text-[#EA580C]">Empresa</CardTitle>
               <div className="text-4xl font-bold mt-4 mb-1">59€ <span className="text-base font-normal text-gray-500">/ mes</span></div>
             </CardHeader>
             <CardContent>
-              <Button className="w-full mb-6 bg-[#131921] hover:bg-[#232f3e] text-white" onClick={() => handleUpgrade('Empresa')}>
+              <Button className="w-full mb-6 bg-[#1B2A41] hover:bg-[#10192B] text-white" onClick={() => handleUpgrade('Empresa')}>
                 Mejorar a Empresa
               </Button>
               <ul className="space-y-4 text-sm text-gray-700">
                 <li className="flex items-start gap-2">
-                  <Check className="w-5 h-5 text-[#c45500] shrink-0" />
+                  <Check className="w-5 h-5 text-[#EA580C] shrink-0" />
                   <span className="font-bold text-gray-900">Anuncios ILIMITADOS</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <Check className="w-5 h-5 text-[#c45500] shrink-0" />
+                  <Check className="w-5 h-5 text-[#EA580C] shrink-0" />
                   <span><strong className="text-gray-900">Anuncios Patrocinados</strong> (Siempre visibles en la página principal)</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <Check className="w-5 h-5 text-[#c45500] shrink-0" />
+                  <Check className="w-5 h-5 text-[#EA580C] shrink-0" />
                   <span><strong className="text-gray-900">Renovación continua (1h)</strong></span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <Check className="w-5 h-5 text-[#c45500] shrink-0" />
+                  <Check className="w-5 h-5 text-[#EA580C] shrink-0" />
                   <span>Insignia de "Empresa Verificada"</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <Check className="w-5 h-5 text-[#c45500] shrink-0" />
+                  <Check className="w-5 h-5 text-[#EA580C] shrink-0" />
                   <span>Asesor personal asignado</span>
                 </li>
               </ul>

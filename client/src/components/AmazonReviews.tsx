@@ -22,7 +22,7 @@ export function AmazonReviews({ rating, totalReviews }: { rating: number, totalR
           <h2 className="text-xl font-bold text-gray-900 mb-4">Opiniones de clientes</h2>
           
           <div className="flex items-center gap-4 mb-2">
-            <div className="flex text-[#ffa41c]">
+            <div className="flex text-[#FBBF24]">
               {[...Array(5)].map((_, i) => (
                 <Star 
                   key={i} 
@@ -47,16 +47,16 @@ export function AmazonReviews({ rating, totalReviews }: { rating: number, totalR
               const stars = 5 - index;
               return (
                 <div key={stars} className="flex items-center gap-4 group">
-                  <a href="#" className="text-sm text-[#007185] hover:text-[#c45500] hover:underline w-16 whitespace-nowrap">
+                  <a href="#" className="text-sm text-[#2563EB] hover:text-[#EA580C] hover:underline w-16 whitespace-nowrap">
                     {stars} estrellas
                   </a>
                   <div className="flex-1 h-4 bg-gray-100 rounded-sm border border-gray-200 overflow-hidden cursor-pointer">
                     <div 
-                      className="h-full bg-[#ffa41c] rounded-l-sm" 
+                      className="h-full bg-[#FBBF24] rounded-l-sm" 
                       style={{ width: `${percent}%` }}
                     />
                   </div>
-                  <a href="#" className="text-sm text-[#007185] hover:text-[#c45500] hover:underline w-10 text-right">
+                  <a href="#" className="text-sm text-[#2563EB] hover:text-[#EA580C] hover:underline w-10 text-right">
                     {percent}%
                   </a>
                 </div>
@@ -87,13 +87,13 @@ export function AmazonReviews({ rating, totalReviews }: { rating: number, totalR
                 <span className="text-sm text-gray-900 font-medium">Constructora Martínez</span>
               </div>
               <div className="flex items-center gap-2 mb-1">
-                <div className="flex text-[#ffa41c]">
+                <div className="flex text-[#FBBF24]">
                   {[...Array(5)].map((_, i) => <Star key={i} className="h-4 w-4 fill-current" />)}
                 </div>
                 <span className="text-sm font-bold text-gray-900">Excelente maquinaria, muy buen estado</span>
               </div>
               <p className="text-xs text-gray-500 mb-2">Revisado en España el 12 de septiembre de 2025</p>
-              <div className="text-xs text-[#c45500] font-bold mb-2">Alquiler Verificado</div>
+              <div className="text-xs text-[#EA580C] font-bold mb-2">Alquiler Verificado</div>
               <p className="text-sm text-gray-800 leading-relaxed mb-3">
                 Alquilamos este equipo para una obra en el centro de la ciudad y el rendimiento fue excepcional. El propietario lo entregó puntual, con el depósito lleno y completamente limpio. La comunicación fue muy fluida. Sin duda volveremos a trabajar con ellos para futuros proyectos.
               </p>
@@ -116,14 +116,14 @@ export function AmazonReviews({ rating, totalReviews }: { rating: number, totalR
                 <span className="text-sm text-gray-900 font-medium">Reformas Integrales Ruiz</span>
               </div>
               <div className="flex items-center gap-2 mb-1">
-                <div className="flex text-[#ffa41c]">
+                <div className="flex text-[#FBBF24]">
                   {[...Array(4)].map((_, i) => <Star key={i} className="h-4 w-4 fill-current" />)}
                   <Star className="h-4 w-4 text-gray-300" />
                 </div>
                 <span className="text-sm font-bold text-gray-900">Cumple su función perfectamente</span>
               </div>
               <p className="text-xs text-gray-500 mb-2">Revisado en España el 3 de agosto de 2025</p>
-              <div className="text-xs text-[#c45500] font-bold mb-2">Alquiler Verificado</div>
+              <div className="text-xs text-[#EA580C] font-bold mb-2">Alquiler Verificado</div>
               <p className="text-sm text-gray-800 leading-relaxed mb-3">
                 El equipo funciona tal como se describe. Tuvo un pequeño problema con una de las luces pero nada que impidiera el trabajo. El precio es competitivo y el servicio al cliente del propietario fue rápido a la hora de responder mis dudas técnicas. Recomendado.
               </p>
@@ -138,7 +138,7 @@ export function AmazonReviews({ rating, totalReviews }: { rating: number, totalR
               </div>
             </div>
             
-            <a href="#" className="text-sm font-bold text-[#007185] hover:text-[#c45500] hover:underline flex items-center">
+            <a href="#" className="text-sm font-bold text-[#2563EB] hover:text-[#EA580C] hover:underline flex items-center">
               Ver todas las valoraciones <span className="ml-1">›</span>
             </a>
           </div>

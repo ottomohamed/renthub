@@ -34,7 +34,7 @@ export default function ItemDetail() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center text-[#f3a847]">
+      <div className="min-h-screen flex items-center justify-center text-[#E85A2A]">
         <h1 className="text-2xl font-bold animate-pulse">Cargando detalles...</h1>
       </div>
     );
@@ -54,11 +54,11 @@ export default function ItemDetail() {
   return (
     <div className="min-h-screen bg-white text-gray-900 pb-12 font-sans">
       {/* Amazon-style header */}
-      <header className="bg-[#131921] text-white p-3">
+      <header className="bg-[#1B2A41] text-white p-3">
         <div className="container mx-auto flex items-center">
           <Link href="/">
-            <a className="text-xl font-bold text-white hover:text-[#f3a847] transition-colors flex items-center gap-1 border border-transparent hover:border-white p-1 rounded-sm">
-              <span className="bg-[#f3a847] text-black px-2 py-1 rounded font-black tracking-tighter">RH</span>
+            <a className="text-xl font-bold text-white hover:text-[#E85A2A] transition-colors flex items-center gap-1 border border-transparent hover:border-white p-1 rounded-sm">
+              <span className="bg-[#E85A2A] text-black px-2 py-1 rounded font-black tracking-tighter">RH</span>
               <span className="tracking-tight">RentHub</span>
             </a>
           </Link>
@@ -69,7 +69,7 @@ export default function ItemDetail() {
       <div className="bg-white border-b border-gray-200">
         <div className="container mx-auto p-2 max-w-[1400px]">
           <div className="text-xs text-gray-500">
-            <Link href="/"><a className="hover:underline hover:text-[#007185]">Inicio</a></Link> › 
+            <Link href="/"><a className="hover:underline hover:text-[#2563EB]">Inicio</a></Link> › 
             <span className="mx-1">Maquinaria Pesada</span> › 
             <span className="mx-1 capitalize">{item.category}</span> › 
             <span className="mx-1 text-gray-400">{item.titleEs}</span>
@@ -124,12 +124,12 @@ export default function ItemDetail() {
             
             <div className="flex items-center gap-4 text-sm border-b border-gray-200 pb-2">
               <div className="flex items-center gap-1">
-                <div className="flex text-[#ffa41c]">
+                <div className="flex text-[#FBBF24]">
                   {[...Array(5)].map((_, i) => (
                     <Star key={i} className={`h-4 w-4 ${i < Math.floor(item.rating) ? 'fill-current' : 'text-gray-300'}`} />
                   ))}
                 </div>
-                <span className="text-[#007185] hover:text-[#c45500] hover:underline cursor-pointer">
+                <span className="text-[#2563EB] hover:text-[#EA580C] hover:underline cursor-pointer">
                   {item.totalReviews} valoraciones
                 </span>
               </div>
@@ -194,13 +194,13 @@ export default function ItemDetail() {
                 <div className="text-sm">
                   <div className="flex items-start gap-2 mb-3">
                     <MapPin className="w-4 h-4 text-gray-700 shrink-0 mt-0.5" />
-                    <span className="text-[#007185] hover:text-[#c45500] hover:underline cursor-pointer leading-tight">
+                    <span className="text-[#2563EB] hover:text-[#EA580C] hover:underline cursor-pointer leading-tight">
                       Enviar a {item.city} y alrededores
                     </span>
                   </div>
                   
                   {item.available ? (
-                    <h4 className="text-lg text-[#007600] font-medium leading-tight mb-2">Disponible.</h4>
+                    <h4 className="text-lg text-[#16A34A] font-medium leading-tight mb-2">Disponible.</h4>
                   ) : (
                     <h4 className="text-lg text-[#B12704] font-medium leading-tight mb-2">No Disponible Temporalmente.</h4>
                   )}
@@ -210,7 +210,7 @@ export default function ItemDetail() {
                 <div className="text-sm space-y-2 py-3 border-y border-gray-200">
                   <div className="grid grid-cols-[80px_1fr] gap-2">
                     <span className="text-gray-500 text-xs">Vendido por</span>
-                    <span className="text-[#007185] hover:text-[#c45500] hover:underline cursor-pointer truncate text-sm">
+                    <span className="text-[#2563EB] hover:text-[#EA580C] hover:underline cursor-pointer truncate text-sm">
                       {owner ? owner.nameEs : 'N/A'}
                     </span>
                   </div>
@@ -229,7 +229,7 @@ export default function ItemDetail() {
                   <Button className="w-full rounded-full bg-[#ffd814] hover:bg-[#f7ca00] text-black border border-[#fcd200] shadow-sm font-normal py-5">
                     Añadir a la cesta
                   </Button>
-                  <Button className="w-full rounded-full bg-[#ffa41c] hover:bg-[#fa8900] text-black border border-[#ff8f00] shadow-sm font-normal py-5">
+                  <Button className="w-full rounded-full bg-[#FBBF24] hover:bg-[#fa8900] text-black border border-[#ff8f00] shadow-sm font-normal py-5">
                     Alquilar ya
                   </Button>
                   
@@ -276,7 +276,7 @@ export default function ItemDetail() {
           
           {item.specifications && (
             <div className="mb-8">
-              <h2 className="text-[#c45500] text-xl font-bold mb-4 font-sans">Especificaciones técnicas</h2>
+              <h2 className="text-[#EA580C] text-xl font-bold mb-4 font-sans">Especificaciones técnicas</h2>
               <div className="bg-white border border-gray-200 rounded overflow-hidden max-w-2xl">
                 <table className="w-full text-sm">
                   <tbody>
@@ -294,7 +294,7 @@ export default function ItemDetail() {
 
           <div className="flex flex-col lg:flex-row gap-8">
             <div className="flex-1">
-              <h2 className="text-[#c45500] text-xl font-bold mb-4 font-sans">Descripción del equipo</h2>
+              <h2 className="text-[#EA580C] text-xl font-bold mb-4 font-sans">Descripción del equipo</h2>
               <div className="text-base text-gray-800 leading-relaxed whitespace-pre-line max-w-4xl">
                 {item.description}
               </div>

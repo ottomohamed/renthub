@@ -8,7 +8,7 @@ export function SponsoredCarousel({ items, title = "Productos patrocinados relac
   return (
     <div className="my-8 pt-4 border-t border-gray-200 w-full max-w-[1400px]">
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-xl font-bold text-[#c45500] font-sans">{title}</h2>
+        <h2 className="text-xl font-bold text-[#EA580C] font-sans">{title}</h2>
         <span className="text-xs text-gray-500 cursor-pointer hover:underline">Comentarios sobre los anuncios</span>
       </div>
       
@@ -23,16 +23,16 @@ export function SponsoredCarousel({ items, title = "Productos patrocinados relac
                   className="max-w-full max-h-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform" 
                 />
               </div>
-              <h3 className="text-[#007185] group-hover:text-[#c45500] group-hover:underline text-sm font-medium line-clamp-2 mb-1">
+              <h3 className="text-[#2563EB] group-hover:text-[#EA580C] group-hover:underline text-sm font-medium line-clamp-2 mb-1">
                 {item.titleEs}
               </h3>
               <div className="flex items-center gap-1 mb-1">
-                <div className="flex text-[#ffa41c]">
+                <div className="flex text-[#FBBF24]">
                   {[...Array(5)].map((_, i) => (
                     <Star key={i} className={`h-3 w-3 ${i < Math.floor(item.rating) ? 'fill-current' : 'text-gray-300'}`} />
                   ))}
                 </div>
-                <span className="text-xs text-[#007185]">{item.totalReviews}</span>
+                <span className="text-xs text-[#2563EB]">{item.totalReviews}</span>
               </div>
               <div className="text-lg font-medium text-[#B12704]">
                 {item.pricePerDay}€ <span className="text-xs text-gray-500 font-normal">/día</span>

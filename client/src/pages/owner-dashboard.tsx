@@ -27,38 +27,38 @@ export default function OwnerDashboard() {
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900 font-sans pb-12">
       {/* Header */}
-      <header className="bg-[#131921] text-white p-4 sticky top-0 z-20 shadow-md">
+      <header className="bg-[#1B2A41] text-white p-4 sticky top-0 z-20 shadow-md">
         <div className="container mx-auto flex items-center justify-between">
           <div className="flex items-center gap-4">
             <Link href="/">
-              <a className="text-xl font-bold text-white hover:text-[#f3a847] transition-colors flex items-center gap-1">
-                <span className="bg-[#f3a847] text-black px-2 py-1 rounded font-black tracking-tighter">RH</span>
-                <span className="tracking-tight">RentHub <span className="text-xs font-normal align-top text-[#f3a847] ml-1">SELLER CENTRAL</span></span>
+              <a className="text-xl font-bold text-white hover:text-[#E85A2A] transition-colors flex items-center gap-1">
+                <span className="bg-[#E85A2A] text-black px-2 py-1 rounded font-black tracking-tighter">RH</span>
+                <span className="tracking-tight">RentHub <span className="text-xs font-normal align-top text-[#E85A2A] ml-1">SELLER CENTRAL</span></span>
               </a>
             </Link>
           </div>
           <div className="flex items-center gap-4">
             <div className="text-sm text-gray-300">Hola, {owner.nameEs}</div>
             <Link href="/">
-              <a className="text-sm text-white hover:text-[#f3a847]">Volver a la tienda</a>
+              <a className="text-sm text-white hover:text-[#E85A2A]">Volver a la tienda</a>
             </Link>
           </div>
         </div>
       </header>
 
       {/* Upgrade Banner for Free Users */}
-      <div className="bg-gradient-to-r from-[#232f3e] to-[#131921] text-white py-6 mb-6">
+      <div className="bg-gradient-to-r from-[#10192B] to-[#1B2A41] text-white py-6 mb-6">
         <div className="container mx-auto px-4 max-w-6xl flex flex-col md:flex-row items-center justify-between gap-4">
           <div>
             <div className="flex items-center gap-2 mb-1">
               <Badge className="bg-gray-600 hover:bg-gray-600 border-none">Plan Actual: Básico (Gratis)</Badge>
-              <span className="text-[#f3a847] font-bold flex items-center text-sm"><AlertTriangle className="w-4 h-4 mr-1"/> Límite alcanzado</span>
+              <span className="text-[#E85A2A] font-bold flex items-center text-sm"><AlertTriangle className="w-4 h-4 mr-1"/> Límite alcanzado</span>
             </div>
             <h2 className="text-xl font-bold">Aumenta tus alquileres hasta un 300%</h2>
             <p className="text-sm text-gray-300">Tus anuncios no se están mostrando en la primera página. Pásate a Premium.</p>
           </div>
           <Link href="/premium">
-            <Button className="bg-[#f3a847] hover:bg-[#febd69] text-black font-bold border border-[#fcd200] whitespace-nowrap h-11 px-8 rounded-full shadow-lg hover:scale-105 transition-transform">
+            <Button className="bg-[#E85A2A] hover:bg-[#FF6B35] text-black font-bold border border-[#fcd200] whitespace-nowrap h-11 px-8 rounded-full shadow-lg hover:scale-105 transition-transform">
               <Zap className="w-4 h-4 mr-2" />
               Ver Planes Premium
             </Button>
@@ -72,7 +72,7 @@ export default function OwnerDashboard() {
             <h1 className="text-3xl font-bold text-gray-900 mb-2">Panel del Vendedor</h1>
             <p className="text-gray-500">Gestión de inventario y estadísticas de rendimiento</p>
           </div>
-          <Button className="bg-[#f3a847] hover:bg-[#febd69] text-black border border-[#fcd200]" disabled={items.length >= 3}>
+          <Button className="bg-[#E85A2A] hover:bg-[#FF6B35] text-black border border-[#fcd200]" disabled={items.length >= 3}>
             + Nuevo Anuncio {items.length >= 3 && "(Límite Alcanzado)"}
           </Button>
         </div>
@@ -134,10 +134,10 @@ export default function OwnerDashboard() {
             <CardContent className="p-6">
               <div className="flex justify-between items-start mb-2">
                 <div>
-                  <p className="text-sm font-bold text-[#c45500] mb-1">Oportunidad Perdida</p>
+                  <p className="text-sm font-bold text-[#EA580C] mb-1">Oportunidad Perdida</p>
                   <h3 className="text-2xl font-bold text-gray-900">~{totalViews > 0 ? Math.floor(totalViews * 0.05) : 0} clientes</h3>
                 </div>
-                <div className="p-2 bg-orange-100 text-[#c45500] rounded-full">
+                <div className="p-2 bg-orange-100 text-[#EA580C] rounded-full">
                   <AlertTriangle className="w-5 h-5" />
                 </div>
               </div>
@@ -172,7 +172,7 @@ export default function OwnerDashboard() {
                       </div>
                       <div>
                         <Link href={`/item/${item.id}`}>
-                          <a className="font-medium text-[#007185] hover:underline hover:text-[#c45500] line-clamp-1">
+                          <a className="font-medium text-[#2563EB] hover:underline hover:text-[#EA580C] line-clamp-1">
                             {item.titleEs}
                           </a>
                         </Link>

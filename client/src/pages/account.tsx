@@ -4,10 +4,10 @@ import { Package, User, CreditCard, Shield, Settings, Store } from "lucide-react
 export default function Account() {
   return (
     <div className="min-h-screen bg-white font-sans pb-12">
-      <header className="bg-[#131921] text-white p-4 flex items-center justify-between">
+      <header className="bg-[#1B2A41] text-white p-4 flex items-center justify-between">
         <Link href="/">
-          <a className="text-xl font-bold flex items-center gap-1 hover:text-[#f3a847] transition-colors">
-            <span className="bg-[#f3a847] text-black px-2 py-1 rounded font-black tracking-tighter">RH</span>
+          <a className="text-xl font-bold flex items-center gap-1 hover:text-[#E85A2A] transition-colors">
+            <span className="bg-[#E85A2A] text-black px-2 py-1 rounded font-black tracking-tighter">RH</span>
             RentHub
           </a>
         </Link>
@@ -21,7 +21,7 @@ export default function Account() {
           <Link href="/seller-dashboard">
             <a className="border border-gray-300 rounded-lg p-5 flex gap-4 hover:bg-gray-50 transition-colors">
               <div className="mt-1 shrink-0">
-                <Store className="w-10 h-10 text-[#007185]" strokeWidth={1.5} />
+                <Store className="w-10 h-10 text-[#2563EB]" strokeWidth={1.5} />
               </div>
               <div>
                 <h2 className="text-[17px] font-normal text-gray-900 mb-1">Panel de Ventas</h2>
@@ -33,7 +33,7 @@ export default function Account() {
           {/* Mis alquileres */}
           <a href="#" className="border border-gray-300 rounded-lg p-5 flex gap-4 hover:bg-gray-50 transition-colors">
             <div className="mt-1 shrink-0">
-              <Package className="w-10 h-10 text-[#007185]" strokeWidth={1.5} />
+              <Package className="w-10 h-10 text-[#2563EB]" strokeWidth={1.5} />
             </div>
             <div>
               <h2 className="text-[17px] font-normal text-gray-900 mb-1">Mis alquileres</h2>
@@ -44,7 +44,7 @@ export default function Account() {
           {/* Inicio de sesión y seguridad */}
           <a href="#" className="border border-gray-300 rounded-lg p-5 flex gap-4 hover:bg-gray-50 transition-colors">
             <div className="mt-1 shrink-0">
-              <User className="w-10 h-10 text-[#007185]" strokeWidth={1.5} />
+              <User className="w-10 h-10 text-[#2563EB]" strokeWidth={1.5} />
             </div>
             <div>
               <h2 className="text-[17px] font-normal text-gray-900 mb-1">Inicio de sesión y seguridad</h2>
@@ -56,7 +56,7 @@ export default function Account() {
           <Link href="/premium">
             <a className="border border-gray-300 rounded-lg p-5 flex gap-4 hover:bg-gray-50 transition-colors">
               <div className="mt-1 shrink-0">
-                <CreditCard className="w-10 h-10 text-[#007185]" strokeWidth={1.5} />
+                <CreditCard className="w-10 h-10 text-[#2563EB]" strokeWidth={1.5} />
               </div>
               <div>
                 <h2 className="text-[17px] font-normal text-gray-900 mb-1">Premium y Pagos</h2>
@@ -68,7 +68,7 @@ export default function Account() {
           {/* Protección al usuario */}
           <a href="#" className="border border-gray-300 rounded-lg p-5 flex gap-4 hover:bg-gray-50 transition-colors">
             <div className="mt-1 shrink-0">
-              <Shield className="w-10 h-10 text-[#007185]" strokeWidth={1.5} />
+              <Shield className="w-10 h-10 text-[#2563EB]" strokeWidth={1.5} />
             </div>
             <div>
               <h2 className="text-[17px] font-normal text-gray-900 mb-1">Protección y Seguros</h2>
@@ -79,7 +79,7 @@ export default function Account() {
           {/* Configuración */}
           <a href="#" className="border border-gray-300 rounded-lg p-5 flex gap-4 hover:bg-gray-50 transition-colors">
             <div className="mt-1 shrink-0">
-              <Settings className="w-10 h-10 text-[#007185]" strokeWidth={1.5} />
+              <Settings className="w-10 h-10 text-[#2563EB]" strokeWidth={1.5} />
             </div>
             <div>
               <h2 className="text-[17px] font-normal text-gray-900 mb-1">Configuración</h2>

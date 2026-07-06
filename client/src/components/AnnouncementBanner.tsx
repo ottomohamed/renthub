@@ -7,14 +7,14 @@ const ANNOUNCEMENTS = [
     id: 1,
     text: "🔥 ¡Oferta de Verano! 50% de descuento en el primer alquiler",
     link: "/#",
-    color: "bg-[#232f3e]",
+    color: "bg-[#10192B]",
     textColor: "text-white"
   },
   {
     id: 2,
     text: "⭐ Hazte Premium y destaca tus anuncios en primera página",
     link: "/premium",
-    color: "bg-[#f3a847]",
+    color: "bg-[#E85A2A]",
     textColor: "text-black"
   },
   {

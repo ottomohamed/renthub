@@ -37,7 +37,7 @@ export default function Auth() {
       <header className="py-4 border-b border-gray-200 flex justify-center">
         <Link href="/">
           <a className="text-2xl font-bold text-black flex items-center gap-1">
-            <span className="bg-[#f3a847] text-black px-2 py-1 rounded font-black tracking-tighter">RH</span>
+            <span className="bg-[#E85A2A] text-black px-2 py-1 rounded font-black tracking-tighter">RH</span>
             <span className="tracking-tight">RentHub</span>
           </a>
         </Link>
@@ -77,7 +77,7 @@ export default function Auth() {
                 <div className="space-y-1">
                   <div className="flex justify-between items-center">
                     <Label htmlFor="password" className="text-sm font-bold text-gray-900">Contraseña</Label>
-                    {isLogin && <a href="#" className="text-sm text-[#007185] hover:text-[#c45500] hover:underline">¿Has olvidado la contraseña?</a>}
+                    {isLogin && <a href="#" className="text-sm text-[#2563EB] hover:text-[#EA580C] hover:underline">¿Has olvidado la contraseña?</a>}
                   </div>
                   <Input 
                     id="password" 
@@ -92,14 +92,14 @@ export default function Auth() {
 
                 <Button 
                   type="submit" 
-                  className="w-full bg-[#f3a847] hover:bg-[#febd69] text-black border border-[#a88734] shadow-[0_1px_0_rgba(255,255,255,0.4)_inset] rounded-[3px] font-normal h-8"
+                  className="w-full bg-[#E85A2A] hover:bg-[#FF6B35] text-black border border-[#a88734] shadow-[0_1px_0_rgba(255,255,255,0.4)_inset] rounded-[3px] font-normal h-8"
                 >
                   {isLogin ? 'Continuar' : 'Crear tu cuenta de RentHub'}
                 </Button>
               </form>
 
               <div className="mt-6 text-xs text-gray-600">
-                Al continuar, aceptas las <a href="#" className="text-[#007185] hover:text-[#c45500] hover:underline">Condiciones de uso</a> y el <a href="#" className="text-[#007185] hover:text-[#c45500] hover:underline">Aviso de privacidad</a> de RentHub.
+                Al continuar, aceptas las <a href="#" className="text-[#2563EB] hover:text-[#EA580C] hover:underline">Condiciones de uso</a> y el <a href="#" className="text-[#2563EB] hover:text-[#EA580C] hover:underline">Aviso de privacidad</a> de RentHub.
               </div>
 
               {/* Social Login Separator */}
@@ -155,11 +155,11 @@ export default function Auth() {
         </div>
       </main>
 
-      <footer className="mt-12 py-8 bg-gradient-to-b from-white to-gray-50 border-t border-gray-100 flex flex-col items-center gap-4 text-xs text-[#007185]">
+      <footer className="mt-12 py-8 bg-gradient-to-b from-white to-gray-50 border-t border-gray-100 flex flex-col items-center gap-4 text-xs text-[#2563EB]">
         <div className="flex gap-6">
-          <a href="#" className="hover:text-[#c45500] hover:underline">Condiciones de uso</a>
-          <a href="#" className="hover:text-[#c45500] hover:underline">Aviso de privacidad</a>
-          <a href="#" className="hover:text-[#c45500] hover:underline">Ayuda</a>
+          <a href="#" className="hover:text-[#EA580C] hover:underline">Condiciones de uso</a>
+          <a href="#" className="hover:text-[#EA580C] hover:underline">Aviso de privacidad</a>
+          <a href="#" className="hover:text-[#EA580C] hover:underline">Ayuda</a>
         </div>
         <p className="text-gray-500">© 2025 RentHub 2030</p>
       </footer>

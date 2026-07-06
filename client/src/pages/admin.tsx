@@ -107,7 +107,7 @@ export default function Admin() {
       <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4 font-sans">
         <Card className="w-full max-w-md shadow-lg border-gray-200">
           <CardHeader className="text-center space-y-2 pt-8">
-            <div className="mx-auto bg-[#f3a847] w-12 h-12 rounded-full flex items-center justify-center mb-2">
+            <div className="mx-auto bg-[#E85A2A] w-12 h-12 rounded-full flex items-center justify-center mb-2">
               <Lock className="w-6 h-6 text-black" />
             </div>
             <CardTitle className="text-2xl font-medium text-gray-900">Acceso Restringido</CardTitle>
@@ -121,7 +121,7 @@ export default function Admin() {
                   placeholder="Introduce la contraseña" 
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full h-12 text-center text-lg border-gray-300 focus-visible:ring-[#f3a847]"
+                  className="w-full h-12 text-center text-lg border-gray-300 focus-visible:ring-[#E85A2A]"
                 />
                 {error && <p className="text-[#B12704] text-sm text-center">{error}</p>}
               </div>
@@ -131,7 +131,7 @@ export default function Admin() {
             </form>
             <div className="mt-8 text-center border-t border-gray-100 pt-6">
               <Link href="/">
-                <a className="text-[#007185] hover:text-[#c45500] hover:underline text-sm flex items-center justify-center gap-1">
+                <a className="text-[#2563EB] hover:text-[#EA580C] hover:underline text-sm flex items-center justify-center gap-1">
                   <ArrowLeft className="w-4 h-4" /> Volver a la tienda
                 </a>
               </Link>
@@ -145,13 +145,13 @@ export default function Admin() {
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900 font-sans pb-12">
       {/* Amazon-style Admin Header */}
-      <header className="bg-[#131921] text-white p-4 mb-8 sticky top-0 z-20 shadow-md">
+      <header className="bg-[#1B2A41] text-white p-4 mb-8 sticky top-0 z-20 shadow-md">
         <div className="container mx-auto flex items-center justify-between">
           <div className="flex items-center gap-4">
             <Link href="/">
-              <a className="text-xl font-bold text-white hover:text-[#f3a847] transition-colors flex items-center gap-1">
-                <span className="bg-[#f3a847] text-black px-2 py-1 rounded font-black tracking-tighter">RH</span>
-                <span className="tracking-tight">RentHub <span className="text-xs font-normal align-top opacity-80 text-[#f3a847] ml-1">ADMINISTRADOR</span></span>
+              <a className="text-xl font-bold text-white hover:text-[#E85A2A] transition-colors flex items-center gap-1">
+                <span className="bg-[#E85A2A] text-black px-2 py-1 rounded font-black tracking-tighter">RH</span>
+                <span className="tracking-tight">RentHub <span className="text-xs font-normal align-top opacity-80 text-[#E85A2A] ml-1">ADMINISTRADOR</span></span>
               </a>
             </Link>
           </div>
@@ -170,35 +170,35 @@ export default function Admin() {
           <div className="font-bold text-gray-900 mb-4 px-4 uppercase text-xs tracking-wider">Panel Privado</div>
           <Button 
             variant="ghost" 
-            className={`w-full justify-start rounded-md ${activeTab === 'dashboard' ? 'bg-[#f3a847]/10 text-[#c45500] font-bold border-l-4 border-[#f3a847]' : 'text-gray-700 hover:bg-gray-100'}`}
+            className={`w-full justify-start rounded-md ${activeTab === 'dashboard' ? 'bg-[#E85A2A]/10 text-[#EA580C] font-bold border-l-4 border-[#E85A2A]' : 'text-gray-700 hover:bg-gray-100'}`}
             onClick={() => setActiveTab('dashboard')}
           >
             <TrendingUp className="mr-2 h-4 w-4" /> Resumen
           </Button>
           <Button 
             variant="ghost" 
-            className={`w-full justify-start rounded-md ${activeTab === 'listings' ? 'bg-[#f3a847]/10 text-[#c45500] font-bold border-l-4 border-[#f3a847]' : 'text-gray-700 hover:bg-gray-100'}`}
+            className={`w-full justify-start rounded-md ${activeTab === 'listings' ? 'bg-[#E85A2A]/10 text-[#EA580C] font-bold border-l-4 border-[#E85A2A]' : 'text-gray-700 hover:bg-gray-100'}`}
             onClick={() => setActiveTab('listings')}
           >
             <LayoutList className="mr-2 h-4 w-4" /> Gestión de Anuncios
           </Button>
           <Button 
             variant="ghost" 
-            className={`w-full justify-start rounded-md ${activeTab === 'users' ? 'bg-[#f3a847]/10 text-[#c45500] font-bold border-l-4 border-[#f3a847]' : 'text-gray-700 hover:bg-gray-100'}`}
+            className={`w-full justify-start rounded-md ${activeTab === 'users' ? 'bg-[#E85A2A]/10 text-[#EA580C] font-bold border-l-4 border-[#E85A2A]' : 'text-gray-700 hover:bg-gray-100'}`}
             onClick={() => setActiveTab('users')}
           >
             <Users className="mr-2 h-4 w-4" /> Gestión de Usuarios
           </Button>
           <Button 
             variant="ghost" 
-            className={`w-full justify-start rounded-md ${activeTab === 'team' ? 'bg-[#f3a847]/10 text-[#c45500] font-bold border-l-4 border-[#f3a847]' : 'text-gray-700 hover:bg-gray-100'}`}
+            className={`w-full justify-start rounded-md ${activeTab === 'team' ? 'bg-[#E85A2A]/10 text-[#EA580C] font-bold border-l-4 border-[#E85A2A]' : 'text-gray-700 hover:bg-gray-100'}`}
             onClick={() => setActiveTab('team')}
           >
             <ShieldAlert className="mr-2 h-4 w-4" /> Moderadores / Equipo
           </Button>
           <Button 
             variant="ghost" 
-            className={`w-full justify-start rounded-md ${activeTab === 'settings' ? 'bg-[#f3a847]/10 text-[#c45500] font-bold border-l-4 border-[#f3a847]' : 'text-gray-700 hover:bg-gray-100'}`}
+            className={`w-full justify-start rounded-md ${activeTab === 'settings' ? 'bg-[#E85A2A]/10 text-[#EA580C] font-bold border-l-4 border-[#E85A2A]' : 'text-gray-700 hover:bg-gray-100'}`}
             onClick={() => setActiveTab('settings')}
           >
             <Settings className="mr-2 h-4 w-4" /> Configuración
@@ -227,12 +227,12 @@ export default function Admin() {
                     <div className="text-3xl font-medium text-gray-900">{items.filter(i => i.isActive).length}</div>
                   </CardContent>
                 </Card>
-                <Card className="bg-white border border-gray-200 shadow-sm rounded-lg border-t-4 border-t-[#f3a847] hover:shadow-md transition-shadow">
+                <Card className="bg-white border border-gray-200 shadow-sm rounded-lg border-t-4 border-t-[#E85A2A] hover:shadow-md transition-shadow">
                   <CardHeader className="pb-2">
-                    <CardTitle className="text-[#c45500] text-sm font-medium">Anuncios Patrocinados</CardTitle>
+                    <CardTitle className="text-[#EA580C] text-sm font-medium">Anuncios Patrocinados</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className="text-3xl font-medium text-[#c45500]">{items.filter(i => i.isPromoted).length}</div>
+                    <div className="text-3xl font-medium text-[#EA580C]">{items.filter(i => i.isPromoted).length}</div>
                   </CardContent>
                 </Card>
               </div>
@@ -263,14 +263,14 @@ export default function Admin() {
                               <img src={item.images[0]} alt="" className="max-w-full max-h-full object-cover mix-blend-multiply" />
                             </div>
                             <div>
-                              <div className="font-medium text-[#007185] hover:underline cursor-pointer line-clamp-1">{item.titleEs}</div>
+                              <div className="font-medium text-[#2563EB] hover:underline cursor-pointer line-clamp-1">{item.titleEs}</div>
                               <div className="text-xs text-gray-500">{item.images.length} imágenes registradas</div>
                             </div>
                           </div>
                         </td>
                         <td className="p-3 text-gray-700">{users.find(u => u.id === item.ownerId)?.nameEs || 'N/A'}</td>
                         <td className="p-3">
-                          <span className={`px-2 py-0.5 rounded text-xs font-medium ${item.isActive ? 'bg-[#e6f4ea] text-[#007600]' : 'bg-red-50 text-[#B12704]'}`}>
+                          <span className={`px-2 py-0.5 rounded text-xs font-medium ${item.isActive ? 'bg-[#e6f4ea] text-[#16A34A]' : 'bg-red-50 text-[#B12704]'}`}>
                             {item.isActive ? 'Visible' : 'Oculto'}
                           </span>
                         </td>
@@ -293,7 +293,7 @@ export default function Admin() {
               
               {/* Image Editor Modal/Section */}
               {editingItem && (
-                <div className="mt-6 bg-white p-6 rounded-lg border border-[#f3a847] shadow-lg animate-in slide-in-from-bottom-4">
+                <div className="mt-6 bg-white p-6 rounded-lg border border-[#E85A2A] shadow-lg animate-in slide-in-from-bottom-4">
                   <div className="flex justify-between items-center mb-4">
                     <h3 className="text-lg font-bold text-gray-900">Actualizar Imágenes del Anuncio #{editingItem}</h3>
                     <Button variant="ghost" size="sm" onClick={() => { setEditingItem(null); setLocalImages([]); setNewImageUrls(""); }}>Cancelar</Button>
@@ -342,7 +342,7 @@ export default function Admin() {
                       <Label htmlFor="imageUrls" className="text-sm font-medium mb-1 block">URLs de Imágenes (Separadas por comas)</Label>
                       <textarea 
                         id="imageUrls"
-                        className="w-full min-h-[80px] p-3 border border-gray-300 rounded focus:ring-2 focus:ring-[#f3a847] outline-none text-sm"
+                        className="w-full min-h-[80px] p-3 border border-gray-300 rounded focus:ring-2 focus:ring-[#E85A2A] outline-none text-sm"
                         placeholder="https://ejemplo.com/foto1.jpg, https://ejemplo.com/foto2.jpg..."
                         value={newImageUrls}
                         onChange={(e) => setNewImageUrls(e.target.value)}
@@ -383,7 +383,7 @@ export default function Admin() {
                         </td>
                         <td className="p-3">
                           {user.verified ? (
-                            <span className="flex items-center gap-1 text-[#007600] text-xs font-medium"><CheckCircle className="w-3 h-3" /> Verificado</span>
+                            <span className="flex items-center gap-1 text-[#16A34A] text-xs font-medium"><CheckCircle className="w-3 h-3" /> Verificado</span>
                           ) : (
                             <span className="flex items-center gap-1 text-[#B12704] text-xs font-medium"><Ban className="w-3 h-3" /> Suspendido</span>
                           )}
@@ -438,16 +438,16 @@ export default function Admin() {
                     <form onSubmit={handleAddModerator} className="space-y-4">
                       <div className="space-y-2">
                         <Label htmlFor="mod-email">Correo Electrónico del Invitado</Label>
-                        <Input id="mod-email" type="email" placeholder="ejemplo@renthub.com" required className="focus-visible:ring-[#f3a847]" />
+                        <Input id="mod-email" type="email" placeholder="ejemplo@renthub.com" required className="focus-visible:ring-[#E85A2A]" />
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="mod-role">Nivel de Permisos</Label>
-                        <select id="mod-role" className="w-full border border-gray-300 rounded-md p-2 outline-none focus:border-[#f3a847] focus:ring-1 focus:ring-[#f3a847] text-sm">
+                        <select id="mod-role" className="w-full border border-gray-300 rounded-md p-2 outline-none focus:border-[#E85A2A] focus:ring-1 focus:ring-[#E85A2A] text-sm">
                           <option value="moderator">Moderador Básico (Solo revisar anuncios)</option>
                           <option value="manager">Gestor (Aprobar/Suspender usuarios)</option>
                         </select>
                       </div>
-                      <Button type="submit" className="w-full bg-[#f3a847] hover:bg-[#febd69] text-black font-medium border border-[#fcd200]">
+                      <Button type="submit" className="w-full bg-[#E85A2A] hover:bg-[#FF6B35] text-black font-medium border border-[#fcd200]">
                         Enviar Invitación
                       </Button>
                     </form>
