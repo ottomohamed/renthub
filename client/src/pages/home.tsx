@@ -65,10 +65,10 @@ export default function Home() {
             </div>
           </div>
           
-          {/* Search Bar - Amazon Style (Center) */}
-          <div className="flex-1 max-w-4xl flex order-last md:order-none w-full mt-2 md:mt-0 px-2 md:px-0">
+          {/* Search Bar - Keycap Style (Center) */}
+          <div className="flex-1 max-w-4xl flex items-center gap-2 order-last md:order-none w-full mt-2 md:mt-0 px-2 md:px-0">
             <select 
-              className="bg-gray-100 text-black border-none rounded-l-md px-2 py-2 outline-none text-xs border-r border-gray-300 w-auto md:w-32 hidden md:block hover:bg-gray-200 cursor-pointer"
+              className="bg-white text-black rounded-md px-2 py-2 outline-none text-xs w-auto md:w-32 hidden md:block hover:bg-gray-100 cursor-pointer border-b-4 border-gray-300 transition-all duration-100 active:translate-y-1 active:border-b-0"
               value={city}
               onChange={(e) => setCity(e.target.value)}
               data-testid="select-city"
@@ -88,55 +88,61 @@ export default function Home() {
             <div className="relative flex-1">
               <Input 
                 placeholder="Buscar maquinaria, herramientas, vehículos..." 
-                className="w-full bg-white text-black border-none md:rounded-none rounded-l-md focus-visible:ring-2 focus-visible:ring-[#E85A2A] h-10 px-4 text-base"
+                className="w-full bg-white text-black rounded-md focus-visible:ring-2 focus-visible:ring-[#E85A2A] h-10 px-4 text-base border-b-4 border-gray-300"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 data-testid="input-search"
               />
             </div>
-            <Button className="bg-[#FF6B35] hover:bg-[#E85A2A] text-black border-none rounded-none rounded-r-md h-10 px-5">
+            <Button className="bg-[#FF6B35] hover:bg-[#FF6B35] text-black rounded-md h-10 px-5 border-b-4 border-[#A83F1A] transition-all duration-100 active:translate-y-1 active:border-b-0">
               <Search className="h-5 w-5" />
             </Button>
           </div>
           
-          {/* Right Actions */}
-          <div className="flex items-center gap-1 md:gap-2 min-w-max">
+          {/* Right Actions - Keycap Style */}
+          <div className="flex items-center gap-2 md:gap-3 min-w-max">
             
             <Link href="/auth">
-              <a className="flex flex-col text-sm border border-transparent hover:border-white p-2 rounded-sm cursor-pointer hidden lg:flex text-white">
+              <a className="hidden lg:flex flex-col text-sm bg-[#22334D] rounded-md px-3 py-1.5 cursor-pointer text-white border-b-4 border-[#0A121F] transition-all duration-100 hover:bg-[#2B3F5C] active:translate-y-1 active:border-b-0">
                 <span className="text-xs text-gray-300">Hola, Identifícate</span>
                 <span className="font-bold flex items-center text-sm leading-tight text-white">Mi Cuenta</span>
               </a>
             </Link>
 
-            <div className="flex flex-col text-sm border border-transparent hover:border-white p-2 rounded-sm cursor-pointer hidden lg:flex">
+            <div className="hidden lg:flex flex-col text-sm bg-[#22334D] rounded-md px-3 py-1.5 cursor-pointer border-b-4 border-[#0A121F] transition-all duration-100 hover:bg-[#2B3F5C] active:translate-y-1 active:border-b-0">
               <span className="text-xs text-gray-300">Devoluciones</span>
               <span className="font-bold flex items-center text-sm leading-tight">y Pedidos</span>
             </div>
             
             <Link href="/premium">
-              <Button className="bg-[#E85A2A] text-black hover:bg-[#FF6B35] font-bold hidden sm:flex h-9 shadow-[0_0_5px_rgba(232,90,42,0.3)] ml-2">
+              <Button className="bg-[#FF6B35] hover:bg-[#FF6B35] text-black font-bold uppercase tracking-wide hidden sm:flex h-10 px-5 rounded-md border-b-4 border-[#A83F1A] transition-all duration-100 active:translate-y-1 active:border-b-0">
                 Destacar Anuncio
               </Button>
             </Link>
             
-            <div className="flex items-end border border-transparent hover:border-white p-2 rounded-sm cursor-pointer relative ml-2">
-              <ShoppingCart className="h-8 w-8" />
-              <span className="absolute top-0 right-2 md:right-4 text-[#E85A2A] font-bold text-lg leading-none">0</span>
-              <span className="font-bold text-sm hidden md:block mt-auto">Cesta</span>
+            <div className="flex items-end bg-[#22334D] rounded-md px-3 py-1.5 cursor-pointer relative border-b-4 border-[#0A121F] transition-all duration-100 hover:bg-[#2B3F5C] active:translate-y-1 active:border-b-0">
+              <ShoppingCart className="h-7 w-7" />
+              <span className="absolute top-0 right-1 md:right-2 text-[#FF6B35] font-bold text-lg leading-none">0</span>
+              <span className="font-bold text-sm hidden md:block mt-auto ml-1">Cesta</span>
             </div>
           </div>
         </div>
         
-        {/* Amazon Sub-nav */}
-        <div className="bg-[#10192B] px-4 py-2 text-sm flex gap-4 overflow-x-auto whitespace-nowrap hide-scrollbar">
-          <a href="#" className="flex items-center gap-1 font-bold hover:text-white border border-transparent hover:border-white px-2 rounded-sm" onClick={(e) => { e.preventDefault(); setCategory(""); }}><Menu className="w-4 h-4"/> Todo</a>
+        {/* Category Sub-nav - Keycap Style */}
+        <div className="bg-[#10192B] px-4 py-3 text-sm flex gap-2 overflow-x-auto whitespace-nowrap hide-scrollbar">
+          <a 
+            href="#" 
+            className={`flex items-center gap-1 font-bold px-3 py-1.5 rounded-md border-b-4 transition-all duration-100 active:translate-y-1 active:border-b-0 ${category === '' ? 'bg-[#FF6B35] border-[#A83F1A] text-black' : 'bg-[#22334D] border-[#0A121F] text-gray-200 hover:bg-[#2B3F5C]'}`}
+            onClick={(e) => { e.preventDefault(); setCategory(""); }}
+          >
+            <Menu className="w-4 h-4"/> Todo
+          </a>
           {CATEGORIES.map(cat => (
             <a 
               key={cat.id} 
               href="#" 
               onClick={(e) => { e.preventDefault(); setCategory(cat.id); }}
-              className={`hover:text-white border px-2 rounded-sm ${category === cat.id ? 'border-white font-bold text-white' : 'border-transparent text-gray-300'}`}
+              className={`px-3 py-1.5 rounded-md border-b-4 font-medium transition-all duration-100 active:translate-y-1 active:border-b-0 ${category === cat.id ? 'bg-[#FF6B35] border-[#A83F1A] text-black font-bold' : 'bg-[#22334D] border-[#0A121F] text-gray-200 hover:bg-[#2B3F5C]'}`}
             >
               {cat.name}
             </a>
