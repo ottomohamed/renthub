@@ -1,107 +1,173 @@
-import { useState } from "react";
-import { Link } from "wouter";
+import { Check, Star, Zap, TrendingUp, Shield, HelpCircle, PhoneCall } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, Check, Sparkles, TrendingUp } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
+import { Link } from "wouter";
 
 export default function Premium() {
-  const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
-  const { toast } = useToast();
-
-  const handlePayment = () => {
-    if (!selectedPlan) return;
-    
-    // Mock payment success
-    toast({
-      title: "Pago completado",
-      description: "Tu anuncio ahora es premium y será destacado.",
-    });
-    
-    setTimeout(() => {
-      window.location.href = "/";
-    }, 2000);
+  const handleUpgrade = (plan: string) => {
+    alert(`En un entorno real, aquí se abriría la pasarela de pago para el plan ${plan}.`);
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-900 pb-12 font-sans">
-      <header className="bg-[#131921] text-white p-4 mb-8">
-        <div className="container mx-auto flex items-center">
+    <div className="min-h-screen bg-gray-50 text-gray-900 font-sans pb-16">
+      {/* Header */}
+      <header className="bg-[#131921] text-white p-4 sticky top-0 z-20 shadow-md">
+        <div className="container mx-auto flex items-center justify-between">
           <Link href="/">
             <a className="text-xl font-bold text-white hover:text-[#f3a847] transition-colors flex items-center gap-1">
               <span className="bg-[#f3a847] text-black px-2 py-1 rounded font-black tracking-tighter">RH</span>
-              <span className="tracking-tight">RentHub</span>
+              <span className="tracking-tight">RentHub <span className="text-xs font-normal align-top text-[#f3a847] ml-1">PREMIUM</span></span>
             </a>
+          </Link>
+          <Link href="/seller-dashboard">
+            <a className="text-sm text-gray-300 hover:text-white">Volver al Panel</a>
           </Link>
         </div>
       </header>
 
-      <div className="container mx-auto max-w-5xl px-4">
-        <div className="text-center mb-12">
-          <h1 className="text-3xl md:text-4xl font-medium mb-4 text-gray-900">Impulsa tus Alquileres de Maquinaria</h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Destaca tus anuncios como patrocinados para multiplicar tus reservas y rentabilidad.
+      {/* Hero Section */}
+      <div className="bg-white border-b border-gray-200">
+        <div className="container mx-auto px-4 py-12 max-w-5xl text-center">
+          <Badge className="bg-[#f3a847] text-black hover:bg-[#febd69] border-[#fcd200] mb-4 text-xs font-bold px-3 py-1">
+            Impulsa tus ventas
+          </Badge>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">Llega a más clientes, alquila más rápido.</h1>
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-8">
+            Los anunciantes Premium reciben hasta <span className="font-bold text-[#c45500]">3 veces más contactos</span> que los anunciantes gratuitos. Elige el plan que mejor se adapte a tu negocio.
           </p>
         </div>
+      </div>
 
-        <div className="grid md:grid-cols-2 gap-8 mb-12">
-          {/* Plan 1 */}
-          <Card className={`bg-white transition-all cursor-pointer border-2 ${selectedPlan === 'top_spot' ? 'border-[#f3a847] shadow-md' : 'border-gray-200 hover:border-gray-300 shadow-sm'}`} onClick={() => setSelectedPlan('top_spot')}>
-            <CardHeader className="bg-gray-50 border-b border-gray-100">
-              <div className="flex justify-between items-start mb-2">
-                <Badge variant="outline" className="bg-white text-gray-700 border-gray-300">Recomendado</Badge>
-                <TrendingUp className="text-[#f3a847] w-6 h-6" />
-              </div>
-              <CardTitle className="text-xl font-medium">Anuncio Patrocinado Básico</CardTitle>
-              <CardDescription className="text-gray-500">Aparece en los primeros resultados de búsqueda</CardDescription>
+      {/* Pricing Cards */}
+      <div className="container mx-auto px-4 max-w-6xl -mt-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          
+          {/* Plan Básico/Gratis */}
+          <Card className="border border-gray-200 shadow-sm relative opacity-80">
+            <CardHeader className="text-center pb-2">
+              <CardTitle className="text-2xl font-bold text-gray-700">Gratis</CardTitle>
+              <div className="text-3xl font-bold mt-4 mb-1">0€ <span className="text-sm font-normal text-gray-500">/ mes</span></div>
             </CardHeader>
-            <CardContent className="space-y-4 pt-6">
-              <div className="text-3xl font-bold text-gray-900 mb-6">9€ <span className="text-base text-gray-500 font-normal">/semana</span></div>
-              <ul className="space-y-3">
-                <li className="flex items-center gap-3 text-gray-700"><Check className="text-[#007600] w-5 h-5" /> Posición prioritaria en búsquedas</li>
-                <li className="flex items-center gap-3 text-gray-700"><Check className="text-[#007600] w-5 h-5" /> Etiqueta de "Patrocinado"</li>
-                <li className="flex items-center gap-3 text-gray-700"><Check className="text-[#007600] w-5 h-5" /> Hasta 3x más visualizaciones</li>
+            <CardContent>
+              <Button variant="outline" className="w-full mb-6" disabled>
+                Tu plan actual
+              </Button>
+              <ul className="space-y-4 text-sm text-gray-600">
+                <li className="flex items-start gap-2">
+                  <Check className="w-4 h-4 text-gray-400 shrink-0 mt-0.5" />
+                  <span>Máximo 3 anuncios activos</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="w-4 h-4 text-gray-400 shrink-0 mt-0.5" />
+                  <span>Estadísticas básicas</span>
+                </li>
+                <li className="flex items-start gap-2 text-gray-400">
+                  <span className="w-4 h-4 shrink-0 flex items-center justify-center mt-0.5">-</span>
+                  <span>Sin visibilidad destacada (Bajas vistas)</span>
+                </li>
               </ul>
             </CardContent>
           </Card>
 
-          {/* Plan 2 */}
-          <Card className={`bg-white transition-all cursor-pointer border-2 relative overflow-hidden ${selectedPlan === 'animated_banner' ? 'border-[#f3a847] shadow-md' : 'border-gray-200 hover:border-gray-300 shadow-sm'}`} onClick={() => setSelectedPlan('animated_banner')}>
-            <div className="absolute top-0 right-0 bg-[#007185] text-white font-bold text-xs px-3 py-1 rounded-bl-lg z-10">MÁXIMA VISIBILIDAD</div>
-            <CardHeader className="bg-gray-50 border-b border-gray-100">
-              <div className="flex justify-between items-start mb-2">
-                <Badge variant="outline" className="bg-[#f3a847]/20 text-[#c45500] border-[#f3a847]">Premium</Badge>
-                <Sparkles className="text-[#f3a847] w-6 h-6" />
-              </div>
-              <CardTitle className="text-xl font-medium">Banner Animado VIP</CardTitle>
-              <CardDescription className="text-gray-500">Tu anuncio en el banner deslizante principal</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4 pt-6">
-              <div className="text-3xl font-bold text-gray-900 mb-6">19€ <span className="text-base text-gray-500 font-normal">/semana</span></div>
-              <ul className="space-y-3">
-                <li className="flex items-center gap-3 text-gray-700"><Check className="text-[#007600] w-5 h-5" /> Inclusión en el carrusel superior animado</li>
-                <li className="flex items-center gap-3 text-gray-700"><Check className="text-[#007600] w-5 h-5" /> Máxima tasa de conversión garantizada</li>
-                <li className="flex items-center gap-3 text-gray-700"><Check className="text-[#007600] w-5 h-5" /> Diseño visual exclusivo</li>
-                <li className="flex items-center gap-3 text-gray-700"><Check className="text-[#007600] w-5 h-5" /> Incluye todos los beneficios del Patrocinado Básico</li>
-              </ul>
-            </CardContent>
-          </Card>
-        </div>
-
-        {selectedPlan && (
-          <div className="bg-white rounded-lg p-6 border border-[#f3a847] shadow-sm animate-in slide-in-from-bottom-4 flex flex-col md:flex-row items-center justify-between gap-6">
-            <div>
-              <h3 className="text-lg font-medium text-gray-900 mb-1">Resumen de tu pedido</h3>
-              <p className="text-gray-600">
-                Selección: <span className="font-bold text-[#c45500]">{selectedPlan === 'top_spot' ? 'Patrocinado Básico (9€)' : 'Banner Animado VIP (19€)'}</span>
-              </p>
+          {/* Plan Pro / Plata */}
+          <Card className="border-2 border-[#007185] shadow-lg relative transform md:-translate-y-4 bg-white">
+            <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#007185] text-white px-4 py-1 rounded-full text-xs font-bold whitespace-nowrap">
+              El más popular
             </div>
-            <Button size="lg" className="w-full md:w-auto bg-[#ffd814] hover:bg-[#f7ca00] text-black font-medium border border-[#fcd200] shadow-sm rounded-full px-8" onClick={handlePayment}>
-              Proceder al Pago
-            </Button>
+            <CardHeader className="text-center pb-2 pt-8">
+              <CardTitle className="text-2xl font-bold text-[#007185]">Profesional</CardTitle>
+              <div className="text-4xl font-bold mt-4 mb-1">29€ <span className="text-base font-normal text-gray-500">/ mes</span></div>
+            </CardHeader>
+            <CardContent>
+              <Button className="w-full mb-6 bg-[#ffd814] hover:bg-[#f7ca00] text-black border border-[#fcd200]" onClick={() => handleUpgrade('Profesional')}>
+                Mejorar a Profesional
+              </Button>
+              <ul className="space-y-4 text-sm text-gray-700">
+                <li className="flex items-start gap-2">
+                  <Check className="w-5 h-5 text-green-600 shrink-0" />
+                  <span className="font-medium">Hasta 100 anuncios activos</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="w-5 h-5 text-green-600 shrink-0" />
+                  <span><strong className="text-gray-900">Renovación cada 12h</strong> (Sube a primeros resultados)</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="w-5 h-5 text-green-600 shrink-0" />
+                  <span>Estadísticas avanzadas de WhatsApp y Llamadas</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="w-5 h-5 text-green-600 shrink-0" />
+                  <span>Soporte prioritario por email</span>
+                </li>
+              </ul>
+            </CardContent>
+          </Card>
+
+          {/* Plan Empresa / Oro */}
+          <Card className="border-2 border-[#f3a847] shadow-lg relative bg-gradient-to-b from-[#fff8e1] to-white">
+            <CardHeader className="text-center pb-2">
+              <CardTitle className="text-2xl font-bold text-[#c45500]">Empresa</CardTitle>
+              <div className="text-4xl font-bold mt-4 mb-1">59€ <span className="text-base font-normal text-gray-500">/ mes</span></div>
+            </CardHeader>
+            <CardContent>
+              <Button className="w-full mb-6 bg-[#131921] hover:bg-[#232f3e] text-white" onClick={() => handleUpgrade('Empresa')}>
+                Mejorar a Empresa
+              </Button>
+              <ul className="space-y-4 text-sm text-gray-700">
+                <li className="flex items-start gap-2">
+                  <Check className="w-5 h-5 text-[#c45500] shrink-0" />
+                  <span className="font-bold text-gray-900">Anuncios ILIMITADOS</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="w-5 h-5 text-[#c45500] shrink-0" />
+                  <span><strong className="text-gray-900">Anuncios Patrocinados</strong> (Siempre visibles en la página principal)</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="w-5 h-5 text-[#c45500] shrink-0" />
+                  <span><strong className="text-gray-900">Renovación continua (1h)</strong></span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="w-5 h-5 text-[#c45500] shrink-0" />
+                  <span>Insignia de "Empresa Verificada"</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="w-5 h-5 text-[#c45500] shrink-0" />
+                  <span>Asesor personal asignado</span>
+                </li>
+              </ul>
+            </CardContent>
+          </Card>
+
+        </div>
+      </div>
+
+      {/* Trust factors */}
+      <div className="container mx-auto px-4 mt-20 max-w-5xl">
+        <h3 className="text-2xl font-bold text-center mb-10">¿Por qué pasarse a Premium?</h3>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+          <div className="flex flex-col items-center">
+            <div className="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center text-blue-600 mb-4">
+              <Eye className="w-8 h-8" />
+            </div>
+            <h4 className="font-bold text-lg mb-2">Máxima Visibilidad</h4>
+            <p className="text-gray-600 text-sm">Tus anuncios aparecerán en la banda superior de "Patrocinados" en la página principal.</p>
           </div>
-        )}
+          <div className="flex flex-col items-center">
+            <div className="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center text-green-600 mb-4">
+              <PhoneCall className="w-8 h-8" />
+            </div>
+            <h4 className="font-bold text-lg mb-2">Más Contactos Reales</h4>
+            <p className="text-gray-600 text-sm">Al estar siempre arriba, multiplicas las posibilidades de que te llamen o escriban por WhatsApp.</p>
+          </div>
+          <div className="flex flex-col items-center">
+            <div className="w-16 h-16 bg-orange-50 rounded-full flex items-center justify-center text-orange-600 mb-4">
+              <Shield className="w-8 h-8" />
+            </div>
+            <h4 className="font-bold text-lg mb-2">Genera Confianza</h4>
+            <p className="text-gray-600 text-sm">Los usuarios confían más en las empresas destacadas y verificadas por la plataforma.</p>
+          </div>
+        </div>
       </div>
     </div>
   );

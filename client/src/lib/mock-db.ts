@@ -13,6 +13,7 @@ export interface SubscriptionPlan {
 }
 
 export const SUBSCRIPTION_PLANS: Record<string, SubscriptionPlan> = {
+  'FREE': { name: 'Gratis', price: 0, bumpFrequencyHours: 0, maxListings: 3 },
   'GOLD': { name: 'Oro', price: 59, bumpFrequencyHours: 1, maxListings: Infinity },
   'SILVER': { name: 'Plata', price: 29, bumpFrequencyHours: 12, maxListings: 100 },
   'BRONZE': { name: 'Bronce', price: 9, bumpFrequencyHours: 24, maxListings: 50 }

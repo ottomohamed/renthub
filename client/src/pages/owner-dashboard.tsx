@@ -1,16 +1,18 @@
 import { useState, useEffect } from "react";
 import { Link } from "wouter";
-import { getAllItems, USERS, type Item } from "@/lib/mock-db";
+import { getAllItems, USERS, SUBSCRIPTION_PLANS, type Item } from "@/lib/mock-db";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { BarChart3, Eye, MousePointerClick, MessageSquare, TrendingUp, ArrowLeft, Package, Star } from "lucide-react";
+import { BarChart3, Eye, MousePointerClick, MessageSquare, TrendingUp, ArrowLeft, Package, Star, Phone, MessageCircle, AlertTriangle, Zap } from "lucide-react";
+import { Progress } from "@/components/ui/progress";
 
 export default function OwnerDashboard() {
   const [items, setItems] = useState<any[]>([]);
-  // Mock logged in owner (ownerId = 1: أحمد محمد / Constructora Iberia S.L.)
-  const currentOwnerId = 1;
-  const owner = USERS.find(u => u.id === currentOwnerId);
+  // Mock logged in owner - Let's use user 4 who is BRONZE, but let's treat them as FREE for the demo
+  const currentOwnerId = 4;
+  const owner = USERS.find(u => u.id === currentOwnerId) || USERS[0];
+  const plan = SUBSCRIPTION_PLANS[owner.plan === 'BRONZE' ? 'FREE' : owner.plan] || SUBSCRIPTION_PLANS['FREE']; // Force to FREE for demo
 
   useEffect(() => {
     const allItems = getAllItems();
@@ -19,7 +21,8 @@ export default function OwnerDashboard() {
 
   const totalViews = items.reduce((sum, item) => sum + (item.views || 0), 0);
   const totalClicks = items.reduce((sum, item) => sum + (item.clicks || 0), 0);
-  const totalInquiries = items.reduce((sum, item) => sum + (item.inquiries || 0), 0);
+  const totalWhatsapp = items.reduce((sum, item) => sum + (item.whatsappClicks || Math.floor(Math.random() * 20)), 0);
+  const totalPhone = items.reduce((sum, item) => sum + (item.phoneClicks || Math.floor(Math.random() * 15)), 0);
 
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900 font-sans pb-12">
@@ -35,7 +38,7 @@ export default function OwnerDashboard() {
             </Link>
           </div>
           <div className="flex items-center gap-4">
-            <div className="text-sm text-gray-300">Hola, {owner?.nameEs}</div>
+            <div className="text-sm text-gray-300">Hola, {owner.nameEs}</div>
             <Link href="/">
               <a className="text-sm text-white hover:text-[#f3a847]">Volver a la tienda</a>
             </Link>
@@ -43,14 +46,34 @@ export default function OwnerDashboard() {
         </div>
       </header>
 
-      <div className="container mx-auto px-4 py-8 max-w-6xl">
+      {/* Upgrade Banner for Free Users */}
+      <div className="bg-gradient-to-r from-[#232f3e] to-[#131921] text-white py-6 mb-6">
+        <div className="container mx-auto px-4 max-w-6xl flex flex-col md:flex-row items-center justify-between gap-4">
+          <div>
+            <div className="flex items-center gap-2 mb-1">
+              <Badge className="bg-gray-600 hover:bg-gray-600 border-none">Plan Actual: Básico (Gratis)</Badge>
+              <span className="text-[#f3a847] font-bold flex items-center text-sm"><AlertTriangle className="w-4 h-4 mr-1"/> Límite alcanzado</span>
+            </div>
+            <h2 className="text-xl font-bold">Aumenta tus alquileres hasta un 300%</h2>
+            <p className="text-sm text-gray-300">Tus anuncios no se están mostrando en la primera página. Pásate a Premium.</p>
+          </div>
+          <Link href="/premium">
+            <Button className="bg-[#f3a847] hover:bg-[#febd69] text-black font-bold border border-[#fcd200] whitespace-nowrap h-11 px-8 rounded-full shadow-lg hover:scale-105 transition-transform">
+              <Zap className="w-4 h-4 mr-2" />
+              Ver Planes Premium
+            </Button>
+          </Link>
+        </div>
+      </div>
+
+      <div className="container mx-auto px-4 max-w-6xl">
         <div className="flex justify-between items-end mb-8">
           <div>
             <h1 className="text-3xl font-bold text-gray-900 mb-2">Panel del Vendedor</h1>
             <p className="text-gray-500">Gestión de inventario y estadísticas de rendimiento</p>
           </div>
-          <Button className="bg-[#f3a847] hover:bg-[#febd69] text-black border border-[#fcd200]">
-            + Nuevo Anuncio
+          <Button className="bg-[#f3a847] hover:bg-[#febd69] text-black border border-[#fcd200]" disabled={items.length >= 3}>
+            + Nuevo Anuncio {items.length >= 3 && "(Límite Alcanzado)"}
           </Button>
         </div>
 
@@ -67,8 +90,8 @@ export default function OwnerDashboard() {
                   <Eye className="w-6 h-6" />
                 </div>
               </div>
-              <p className="text-xs text-green-600 flex items-center mt-4">
-                <TrendingUp className="w-3 h-3 mr-1" /> +12% vs mes pasado
+              <p className="text-xs text-red-500 flex items-center mt-4">
+                <TrendingUp className="w-3 h-3 mr-1 rotate-180" /> -15% (Mejora con Premium)
               </p>
             </CardContent>
           </Card>
@@ -77,51 +100,49 @@ export default function OwnerDashboard() {
             <CardContent className="p-6">
               <div className="flex justify-between items-start">
                 <div>
-                  <p className="text-sm font-medium text-gray-500 mb-1">Clics en Anuncios</p>
-                  <h3 className="text-3xl font-bold text-gray-900">{totalClicks.toLocaleString()}</h3>
-                </div>
-                <div className="p-3 bg-orange-50 text-orange-600 rounded-lg">
-                  <MousePointerClick className="w-6 h-6" />
-                </div>
-              </div>
-              <p className="text-xs text-green-600 flex items-center mt-4">
-                <TrendingUp className="w-3 h-3 mr-1" /> +8% vs mes pasado
-              </p>
-            </CardContent>
-          </Card>
-          
-          <Card className="border border-gray-200 shadow-sm">
-            <CardContent className="p-6">
-              <div className="flex justify-between items-start">
-                <div>
-                  <p className="text-sm font-medium text-gray-500 mb-1">Contactos/Leads</p>
-                  <h3 className="text-3xl font-bold text-gray-900">{totalInquiries.toLocaleString()}</h3>
+                  <p className="text-sm font-medium text-gray-500 mb-1">Clics a WhatsApp</p>
+                  <h3 className="text-3xl font-bold text-gray-900">{totalWhatsapp.toLocaleString()}</h3>
                 </div>
                 <div className="p-3 bg-green-50 text-green-600 rounded-lg">
-                  <MessageSquare className="w-6 h-6" />
-                </div>
-              </div>
-              <p className="text-xs text-green-600 flex items-center mt-4">
-                <TrendingUp className="w-3 h-3 mr-1" /> +24% vs mes pasado
-              </p>
-            </CardContent>
-          </Card>
-          
-          <Card className="border border-gray-200 shadow-sm">
-            <CardContent className="p-6">
-              <div className="flex justify-between items-start">
-                <div>
-                  <p className="text-sm font-medium text-gray-500 mb-1">Tasa de Conversión</p>
-                  <h3 className="text-3xl font-bold text-gray-900">
-                    {totalViews > 0 ? ((totalInquiries / totalViews) * 100).toFixed(1) : "0"}%
-                  </h3>
-                </div>
-                <div className="p-3 bg-purple-50 text-purple-600 rounded-lg">
-                  <BarChart3 className="w-6 h-6" />
+                  <MessageCircle className="w-6 h-6" />
                 </div>
               </div>
               <p className="text-xs text-gray-500 mt-4">
-                Visitantes que contactan
+                Veces que abrieron chat
+              </p>
+            </CardContent>
+          </Card>
+          
+          <Card className="border border-gray-200 shadow-sm">
+            <CardContent className="p-6">
+              <div className="flex justify-between items-start">
+                <div>
+                  <p className="text-sm font-medium text-gray-500 mb-1">Revelar Teléfono</p>
+                  <h3 className="text-3xl font-bold text-gray-900">{totalPhone.toLocaleString()}</h3>
+                </div>
+                <div className="p-3 bg-indigo-50 text-indigo-600 rounded-lg">
+                  <Phone className="w-6 h-6" />
+                </div>
+              </div>
+              <p className="text-xs text-gray-500 mt-4">
+                Veces que vieron tu número
+              </p>
+            </CardContent>
+          </Card>
+          
+          <Card className="border border-gray-200 shadow-sm bg-gradient-to-br from-white to-orange-50 border-orange-200">
+            <CardContent className="p-6">
+              <div className="flex justify-between items-start mb-2">
+                <div>
+                  <p className="text-sm font-bold text-[#c45500] mb-1">Oportunidad Perdida</p>
+                  <h3 className="text-2xl font-bold text-gray-900">~{totalViews > 0 ? Math.floor(totalViews * 0.05) : 0} clientes</h3>
+                </div>
+                <div className="p-2 bg-orange-100 text-[#c45500] rounded-full">
+                  <AlertTriangle className="w-5 h-5" />
+                </div>
+              </div>
+              <p className="text-xs text-gray-600">
+                Estimación de clientes perdidos por no aparecer en primera página.
               </p>
             </CardContent>
           </Card>
@@ -136,13 +157,13 @@ export default function OwnerDashboard() {
                 <th className="p-4 font-medium">Anuncio</th>
                 <th className="p-4 font-medium">Estado</th>
                 <th className="p-4 font-medium">Visualizaciones</th>
-                <th className="p-4 font-medium">Clics</th>
-                <th className="p-4 font-medium">Mensajes</th>
-                <th className="p-4 font-medium">CTR</th>
+                <th className="p-4 font-medium">WhatsApp</th>
+                <th className="p-4 font-medium">Teléfono</th>
+                <th className="p-4 font-medium">Posición Búsqueda</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
-              {items.map(item => (
+              {items.map((item, idx) => (
                 <tr key={item.id} className="hover:bg-gray-50 transition-colors">
                   <td className="p-4">
                     <div className="flex items-center gap-3">
@@ -160,19 +181,13 @@ export default function OwnerDashboard() {
                     </div>
                   </td>
                   <td className="p-4">
-                    {item.isPromoted ? (
-                      <Badge className="bg-[#fff8e1] text-[#c45500] hover:bg-[#fff8e1] border-[#fcd200]">Patrocinado</Badge>
-                    ) : item.isActive ? (
-                      <Badge className="bg-[#e6f4ea] text-[#007600] hover:bg-[#e6f4ea] border-none">Activo</Badge>
-                    ) : (
-                      <Badge className="bg-gray-100 text-gray-600 hover:bg-gray-100 border-none">Inactivo</Badge>
-                    )}
+                    <Badge className="bg-gray-100 text-gray-600 hover:bg-gray-100 border-none">Básico</Badge>
                   </td>
                   <td className="p-4 font-medium text-gray-900">{(item.views || 0).toLocaleString()}</td>
-                  <td className="p-4 font-medium text-gray-900">{(item.clicks || 0).toLocaleString()}</td>
-                  <td className="p-4 font-medium text-green-600">{(item.inquiries || 0).toLocaleString()}</td>
-                  <td className="p-4 text-gray-500">
-                    {item.views > 0 ? ((item.clicks / item.views) * 100).toFixed(1) : "0"}%
+                  <td className="p-4 font-medium text-green-600">{(item.whatsappClicks || Math.floor(Math.random()*10)).toLocaleString()}</td>
+                  <td className="p-4 font-medium text-indigo-600">{(item.phoneClicks || Math.floor(Math.random()*10)).toLocaleString()}</td>
+                  <td className="p-4 text-red-500 font-medium flex items-center">
+                    Página {Math.floor(Math.random() * 5) + 3} <AlertTriangle className="w-3 h-3 ml-1" />
                   </td>
                 </tr>
               ))}
