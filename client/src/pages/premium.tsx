@@ -1,4 +1,4 @@
-import { Check, Star, Zap, TrendingUp, Shield, HelpCircle, PhoneCall } from "lucide-react";
+import { Check, Star, Zap, TrendingUp, Shield, HelpCircle, PhoneCall, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
