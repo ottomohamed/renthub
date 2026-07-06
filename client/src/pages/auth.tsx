@@ -23,12 +23,12 @@ export default function Auth() {
     
     // Mock login success
     toast({ title: "Acceso correcto", description: "Has iniciado sesión correctamente." });
-    setLocation("/");
+    setLocation("/account");
   };
 
   const handleGoogleLogin = () => {
     toast({ title: "Google Login", description: "En un entorno real, esto abriría el inicio de sesión con Google." });
-    setTimeout(() => setLocation("/"), 1000);
+    setTimeout(() => setLocation("/account"), 1000);
   };
 
   return (

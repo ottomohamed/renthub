@@ -104,14 +104,7 @@ export default function Home() {
             <Link href="/auth">
               <a className="flex flex-col text-sm border border-transparent hover:border-white p-2 rounded-sm cursor-pointer hidden lg:flex text-white">
                 <span className="text-xs text-gray-300">Hola, Identifícate</span>
-                <span className="font-bold flex items-center text-sm leading-tight text-white">Cuentas y Listas</span>
-              </a>
-            </Link>
-
-            <Link href="/seller-dashboard">
-              <a className="flex flex-col text-sm border border-transparent hover:border-white p-2 rounded-sm cursor-pointer hidden lg:flex text-white">
-                <span className="text-xs text-gray-300">Vender</span>
-                <span className="font-bold flex items-center text-sm leading-tight text-[#f3a847]">Panel de Ventas</span>
+                <span className="font-bold flex items-center text-sm leading-tight text-white">Mi Cuenta</span>
               </a>
             </Link>
 
