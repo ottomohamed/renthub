@@ -7,6 +7,7 @@ import { Card } from "@/components/ui/card";
 import { Star, Phone, ArrowLeft, MapPin, Calendar, Truck, ShieldCheck, Check, MessageCircle, Mail } from "lucide-react";
 import { Link } from "wouter";
 import { AmazonReviews } from "@/components/AmazonReviews";
+import { AdSensePlaceholder } from "@/components/AdSensePlaceholder";
 import { SponsoredCarousel } from "@/components/SponsoredCarousel";
 
 export default function ItemDetail() {
@@ -75,8 +76,13 @@ export default function ItemDetail() {
           </div>
         </div>
       </div>
+      
+      {/* Top Banner AdSense */}
+      <div className="container mx-auto p-4 max-w-[1400px] flex justify-center">
+        <AdSensePlaceholder width="100%" height="90px" className="max-w-[970px]" />
+      </div>
 
-      <div className="container mx-auto p-4 md:p-6 max-w-[1400px]">
+      <div className="container mx-auto px-4 pb-6 md:px-6 max-w-[1400px]">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12">
           
           {/* Left Column - Image Gallery (Amazon Style) */}
@@ -286,10 +292,15 @@ export default function ItemDetail() {
             </div>
           )}
 
-          <div>
-            <h2 className="text-[#c45500] text-xl font-bold mb-4 font-sans">Descripción del equipo</h2>
-            <div className="text-base text-gray-800 leading-relaxed whitespace-pre-line max-w-4xl">
-              {item.description}
+          <div className="flex flex-col lg:flex-row gap-8">
+            <div className="flex-1">
+              <h2 className="text-[#c45500] text-xl font-bold mb-4 font-sans">Descripción del equipo</h2>
+              <div className="text-base text-gray-800 leading-relaxed whitespace-pre-line max-w-4xl">
+                {item.description}
+              </div>
+            </div>
+            <div className="w-full lg:w-[300px] shrink-0 mt-8 lg:mt-0">
+              <AdSensePlaceholder width="300px" height="250px" className="mx-auto" />
             </div>
           </div>
 

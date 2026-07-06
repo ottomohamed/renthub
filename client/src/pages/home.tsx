@@ -9,6 +9,7 @@ import { Star, MapPin, Search, Menu, ShoppingCart, Info, ChevronRight } from "lu
 import { Link, useLocation } from "wouter";
 import { AnnouncementBanner } from "@/components/AnnouncementBanner";
 import { SponsoredCarousel } from "@/components/SponsoredCarousel";
+import { AdSensePlaceholder } from "@/components/AdSensePlaceholder";
 
 export default function Home() {
   const [query, setQuery] = useState("");
@@ -146,6 +147,11 @@ export default function Home() {
       {/* Main Content */}
       <main className="container mx-auto px-4 py-6 bg-gray-50 dark:bg-background min-h-[calc(100vh-200px)]">
         
+        {/* AdSense Top Banner */}
+        <div className="mb-6 w-full flex justify-center">
+          <AdSensePlaceholder width="100%" height="90px" className="max-w-[728px]" />
+        </div>
+
         {/* Amazon-style Sponsored Carousel */}
         {items.some(i => i.isPromoted) && (
           <div className="mb-6 bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
