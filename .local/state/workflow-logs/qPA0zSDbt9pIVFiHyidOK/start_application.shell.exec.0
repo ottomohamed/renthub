@@ -1,0 +1,60 @@
+
+> rest-express@1.0.0 dev:client
+> vite dev --port 5000
+
+[1G[0K
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J
+  [32m[1mVITE[22m v7.1.12[39m  [2mready in [0m[1m1434[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5000[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://172.24.0.2:[1m5000[22m/[39m
+[2m[32m  ➜[39m[22m[2m  press [22m[1mh + enter[22m[2m to show help[22m
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+[RUNTIME_ERROR]{"type":"runtime-error","timestamp":1783172329460,"name":"Error","message":"Badge is not defined","stack":"    at Admin /home/runner/workspace/client/src/pages/admin.tsx:404:26\n\n\n\n\n\n\n\n\n","loc":{"line":404,"column":26,"file":"/home/runner/workspace/client/src/pages/admin.tsx"},"frame":"402|                            </div>\n403|                          </div>\n404|                          <Badge className=\"bg-blue-100 text-blue-700 hover:bg-blue-100 border-none\">Admin</Badge>\n   |                           ^\n405|                        </div>\n406|                        "}
+[RUNTIME_ERROR]{"type":"runtime-error","timestamp":1783172366657,"name":"Error","message":"Badge is not defined","stack":"    at Admin /home/runner/workspace/client/src/pages/admin.tsx:404:26\n\n\n\n\n\n\n\n\n","loc":{"line":404,"column":26,"file":"/home/runner/workspace/client/src/pages/admin.tsx"},"frame":"402|                            </div>\n403|                          </div>\n404|                          <Badge className=\"bg-blue-100 text-blue-700 hover:bg-blue-100 border-none\">Admin</Badge>\n   |                           ^\n405|                        </div>\n406|                        "}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m1:39:55 PM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/pages/admin.tsx, /src/index.css[22m
