@@ -9,11 +9,13 @@ import ItemDetail from "@/pages/item-detail";
 import Premium from "@/pages/premium";
 import Admin from "@/pages/admin";
 import OwnerDashboard from "@/pages/owner-dashboard";
+import Auth from "@/pages/auth";
 
 function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
+      <Route path="/auth" component={Auth} />
       <Route path="/item/:id" component={ItemDetail} />
       <Route path="/premium" component={Premium} />
       <Route path="/admin-secret-hub-2030" component={Admin} />
