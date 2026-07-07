@@ -24,6 +24,7 @@ function Router() {
       <Route path="/admin-secret-hub-2030" component={Admin} />
       <Route path="/seller-dashboard" component={OwnerDashboard} />
       <Route path="/seller-dashboard/new" component={AddItem} />
+      <Route path="/seller-dashboard/edit/:id" component={AddItem} />
       <Route component={NotFound} />
     </Switch>
   );

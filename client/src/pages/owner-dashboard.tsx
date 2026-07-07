@@ -162,6 +162,7 @@ export default function OwnerDashboard() {
                 <th className="p-4 font-medium">WhatsApp</th>
                 <th className="p-4 font-medium">Teléfono</th>
                 <th className="p-4 font-medium">Posición Búsqueda</th>
+                <th className="p-4 font-medium">Acciones</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
@@ -191,11 +192,18 @@ export default function OwnerDashboard() {
                   <td className="p-4 text-red-500 font-medium flex items-center">
                     Página {Math.floor(Math.random() * 5) + 3} <AlertTriangle className="w-3 h-3 ml-1" />
                   </td>
+                  <td className="p-4">
+                    <Link href={`/seller-dashboard/edit/${item.id}`}>
+                      <a className="text-[#2563EB] hover:text-[#EA580C] hover:underline text-sm font-medium" data-testid={`link-edit-${item.id}`}>
+                        Editar
+                      </a>
+                    </Link>
+                  </td>
                 </tr>
               ))}
               {items.length === 0 && (
                 <tr>
-                  <td colSpan={6} className="p-8 text-center text-gray-500">
+                  <td colSpan={7} className="p-8 text-center text-gray-500">
                     <Package className="w-12 h-12 text-gray-300 mx-auto mb-3" />
                     No tienes ningún anuncio activo.
                   </td>

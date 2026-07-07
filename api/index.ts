@@ -6,6 +6,7 @@ import { eq, and, ilike, desc } from "drizzle-orm";
 import { z } from "zod";
 import { createInsertSchema } from "drizzle-zod";
 import { sql } from "drizzle-orm";
+import { handleUpload, type HandleUploadBody } from "@vercel/blob/client";
 
 const owners = pgTable("owners", {
   id: serial("id").primaryKey(),
@@ -77,6 +78,28 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+app.post("/api/upload", async (req: Request, res: Response) => {
+  try {
+    const body = req.body as HandleUploadBody;
+    const jsonResponse = await handleUpload({
+      body,
+      request: req,
+      onBeforeGenerateToken: async () => {
+        return {
+          allowedContentTypes: ["image/jpeg", "image/png", "image/webp", "image/gif"],
+          maximumSizeInBytes: 15 * 1024 * 1024,
+          addRandomSuffix: true,
+        };
+      },
+      onUploadCompleted: async () => {
+      },
+    });
+    res.json(jsonResponse);
+  } catch (err: any) {
+    res.status(400).json({ message: err.message || "Error generating upload token" });
+  }
+});
+
 app.get("/api/items", async (req: Request, res: Response) => {
   try {
     const q = typeof req.query.q === "string" ? req.query.q : "";
@@ -132,6 +155,30 @@ app.get("/api/owners/:id/items", async (req: Request, res: Response) => {
     res.json(results);
   } catch (err: any) {
     res.status(500).json({ message: err.message || "Error fetching owner items" });
+  }
+});
+
+app.patch("/api/items/:id", async (req: Request, res: Response) => {
+  try {
+    const id = parseInt(req.params.id, 10);
+    if (Number.isNaN(id)) return res.status(400).json({ message: "Invalid item id" });
+
+    const updateSchema = insertItemSchema.omit({ ownerId: true }).partial();
+    const parsed = updateSchema.safeParse(req.body);
+    if (!parsed.success) {
+      return res.status(400).json({ message: "Invalid data", errors: parsed.error.flatten() });
+    }
+
+    const [updated] = await db
+      .update(items)
+      .set(parsed.data)
+      .where(eq(items.id, id))
+      .returning();
+
+    if (!updated) return res.status(404).json({ message: "Item not found" });
+    res.json(updated);
+  } catch (err: any) {
+    res.status(500).json({ message: err.message || "Error updating item" });
   }
 });
 

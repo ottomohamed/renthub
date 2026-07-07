@@ -21,15 +21,41 @@ export const SPANISH_REGIONS = [
 ];
 
 export const MAJOR_CITIES = [
-  "Madrid", "Barcelona", "Valencia", "Sevilla", "Zaragoza", 
-  "Málaga", "Murcia", "Palma de Mallorca", "Las Palmas de Gran Canaria", "Bilbao", 
+  "Madrid", "Barcelona", "Valencia", "Sevilla", "Zaragoza",
+  "Málaga", "Murcia", "Palma de Mallorca", "Las Palmas de Gran Canaria", "Bilbao",
   "Alicante", "Córdoba", "Valladolid", "Vigo", "Gijón", "Vitoria-Gasteiz",
   "A Coruña", "Granada", "Elche", "Oviedo", "Badalona", "Cartagena",
   "Terrassa", "Jerez de la Frontera", "Sabadell", "Móstoles", "Santa Cruz de Tenerife",
   "Pamplona", "Almería", "Alcalá de Henares", "Fuenlabrada", "Leganés", "Donostia-San Sebastián",
   "Getafe", "Burgos", "Santander", "Albacete", "Castellón de la Plana", "Alcorcón",
   "San Cristóbal de La Laguna", "Logroño", "Badajoz", "Huelva", "Salamanca", "Marbella",
-  "Lleida", "Tarragona", "Dos Hermanas", "Torrejón de Ardoz", "Parla", "Mataró", "León"
+  "Lleida", "Tarragona", "Dos Hermanas", "Torrejón de Ardoz", "Parla", "Mataró", "León",
+  "Cádiz", "Jaén", "Ourense", "Reus", "Telde", "Baracaldo", "Lugo", "Girona",
+  "Cáceres", "Coslada", "Talavera de la Reina", "Linares", "Manresa", "El Puerto de Santa María",
+  "Ferrol", "Écija", "Chiclana de la Frontera", "Vélez-Málaga", "San Fernando", "Toledo",
+  "Rivas-Vaciamadrid", "Motril", "Alcobendas", "Torrent", "Estepona", "Guadalajara",
+  "Torrevieja", "Roquetas de Mar", "Benidorm", "Sagunto", "Ciudad Real", "Fuengirola",
+  "Ponferrada", "Ávila", "Segovia", "Melilla", "Ceuta", "Talavera", "Aranjuez",
+  "San Sebastián de los Reyes", "Pozuelo de Alarcón", "Las Rozas de Madrid", "Majadahonda",
+  "Boadilla del Monte", "Collado Villalba", "Torremolinos", "Mijas", "Cornellà de Llobregat",
+  "Sant Boi de Llobregat", "Sant Cugat del Vallès", "Rubí", "Vilanova i la Geltrú",
+  "El Prat de Llobregat", "Granollers", "Gavà", "Cerdanyola del Vallès", "Igualada",
+  "Vic", "Blanes", "Calella", "Lloret de Mar", "Salou", "Cambrils", "Tortosa",
+  "Zamora", "Palencia", "Soria", "Cuenca", "Teruel", "Huesca",
+  "Alcañiz", "Calatayud", "Mérida", "Don Benito", "Plasencia", "Almendralejo",
+  "Ourense", "Pontevedra", "Vilagarcía de Arousa", "Narón", "Santiago de Compostela",
+  "Avilés", "Langreo", "Mieres", "Siero", "Torrelavega", "Castro-Urdiales",
+  "Irún", "Barakaldo", "Getxo", "Portugalete", "Basauri", "Sestao",
+  "Tudela", "Estella", "Alsasua", "Utebo", "Ejea de los Caballeros",
+  "Manacor", "Inca", "Ibiza", "Mahón", "Ciutadella de Menorca",
+  "Arrecife", "Puerto del Rosario", "San Bartolomé de Tirajana",
+  "Adeje", "Arona", "La Orotava", "Los Realejos", "Icod de los Vinos",
+  "Cartaya", "Lepe", "Isla Cristina", "Ayamonte", "Moguer",
+  "Antequera", "Ronda", "Nerja", "Rincón de la Victoria", "Coín",
+  "Andújar", "Úbeda", "Baeza", "Alcalá la Real", "Martos",
+  "Lorca", "Molina de Segura", "Cieza", "Yecla", "Águilas", "Mazarrón",
+  "Elda", "Orihuela", "San Vicente del Raspeig", "Villena", "Alcoy",
+  "Manises", "Paterna", "Gandía", "Xàtiva", "Ontinyent", "Alzira"
 ];
 
 export const CATEGORIES = [
