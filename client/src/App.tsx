@@ -9,6 +9,7 @@ import ItemDetail from "@/pages/item-detail";
 import Premium from "@/pages/premium";
 import Admin from "@/pages/admin";
 import OwnerDashboard from "@/pages/owner-dashboard";
+import AddItem from "@/pages/add-item";
 import Auth from "@/pages/auth";
 import Account from "@/pages/account";
 
@@ -22,6 +23,7 @@ function Router() {
       <Route path="/premium" component={Premium} />
       <Route path="/admin-secret-hub-2030" component={Admin} />
       <Route path="/seller-dashboard" component={OwnerDashboard} />
+      <Route path="/seller-dashboard/new" component={AddItem} />
       <Route component={NotFound} />
     </Switch>
   );

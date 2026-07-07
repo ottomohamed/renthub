@@ -72,9 +72,11 @@ export default function OwnerDashboard() {
             <h1 className="text-3xl font-bold text-gray-900 mb-2">Panel del Vendedor</h1>
             <p className="text-gray-500">Gestión de inventario y estadísticas de rendimiento</p>
           </div>
-          <Button className="bg-[#E85A2A] hover:bg-[#FF6B35] text-black border border-[#fcd200]" disabled={items.length >= 3}>
-            + Nuevo Anuncio {items.length >= 3 && "(Límite Alcanzado)"}
-          </Button>
+          <Link href="/seller-dashboard/new">
+            <Button className="bg-[#E85A2A] hover:bg-[#FF6B35] text-black border border-[#fcd200]" disabled={items.length >= 3} data-testid="button-new-listing">
+              + Nuevo Anuncio {items.length >= 3 && "(Límite Alcanzado)"}
+            </Button>
+          </Link>
         </div>
 
         {/* Stats Overview */}
