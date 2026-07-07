@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Fragment } from "react";
 import { searchItems, reloadFromStorage, type Item } from "@/lib/mock-db";
 import { SPANISH_REGIONS, CATEGORIES, MAJOR_CITIES } from "@/lib/spain-data";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -150,28 +150,24 @@ export default function Home() {
         </div>
       </header>
 
-      {/* Main Content */}
-      <main className="container mx-auto px-4 py-6 bg-gray-50 dark:bg-background min-h-[calc(100vh-200px)]">
-        
-        {/* AdSense Top Banner */}
+{/* Main Content */}
+      <main className="container mx-auto px-4 py-6 bg-gray-50 dark:bg-background min-h-[calc(100vh-200px)] pb-20 lg:pb-6">
+        {/* AdSense Top Banner - Compact */}
         <div className="mb-6 w-full flex justify-center">
-          <AdSensePlaceholder width="100%" height="90px" className="max-w-[728px]" />
+          <AdSensePlaceholder width="100%" height="90px" className="max-w-[728px] rounded-lg" />
         </div>
-
-        {/* Amazon-style Sponsored Carousel */}
+        {/* Sponsored Carousel */}
         {items.some(i => i.isPromoted) && (
           <div className="mb-6 bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
             <SponsoredCarousel items={items.filter(i => i.isPromoted)} title="Anuncios Patrocinados Destacados" />
           </div>
         )}
-
         <div className="flex justify-between items-end mb-4 border-b border-gray-200 pb-2">
           <h2 className="text-xl font-bold text-gray-900">
             {category ? `Resultados en: ${CATEGORIES.find(c => c.id === category)?.name}` : 'Resultados Destacados de Maquinaria y Equipamiento'}
           </h2>
           <span className="text-sm text-gray-500 whitespace-nowrap">{items.length} resultados</span>
         </div>
-
         {items.length === 0 ? (
           <div className="text-center py-20 bg-white rounded-xl border border-gray-200">
             <Search className="mx-auto h-12 w-12 text-gray-400 mb-4 opacity-50" />
@@ -179,79 +175,73 @@ export default function Home() {
             <p className="text-gray-500">Prueba a buscar con otras palabras o cambiar de ciudad.</p>
           </div>
         ) : (
-          <div className="flex flex-col gap-6 w-full max-w-6xl">
-            {items.map((item) => (
-              <Card 
-                key={item.id} 
-                className="bg-white border-gray-200 overflow-hidden hover:bg-gray-50 transition-colors group cursor-pointer flex flex-col sm:flex-row rounded-xl w-full"
-                onClick={() => setLocation(`/item/${item.id}`)}
-                data-testid={`card-item-${item.id}`}
-              >
-                {/* Image Section - Large side image like Amazon list view */}
-                <div className="relative w-full sm:w-1/3 md:w-1/4 xl:w-1/5 min-h-[200px] bg-gray-100 flex items-center justify-center p-4 shrink-0">
-                  <img 
-                    src={item.images[0]} 
-                    alt={item.titleEs} 
-                    className="max-w-full max-h-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-500"
-                  />
-                </div>
-                
-                {/* Content Section */}
-                <div className="flex-1 p-6 flex flex-col">
-                  {/* Sponsored badge if applicable */}
-                  {item.isPromoted && (
-                    <div className="mb-2 flex items-center gap-1">
-                      <span className="text-xs text-gray-500 font-medium">Patrocinado</span>
-                      <Info className="w-3 h-3 text-gray-400" />
+          <div className="flex flex-col lg:flex-row gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 flex-1 min-w-0 auto-rows-fr">
+              {items.map((item, index) => (
+                <Fragment key={item.id}>
+                  <Card 
+                    className="bg-white border-gray-200 overflow-hidden hover:shadow-lg transition-all group cursor-pointer flex flex-col rounded-xl h-full"
+                    onClick={() => setLocation(`/item/${item.id}`)}
+                    data-testid={`card-item-${item.id}`}
+                  >
+                    <div className="relative w-full h-40 sm:h-48 bg-gray-100 flex items-center justify-center p-3 shrink-0">
+                      <img 
+                        src={item.images[0]} 
+                        alt={item.titleEs} 
+                        className="max-w-full max-h-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-500"
+                      />
+                    </div>
+                    <div className="p-3 sm:p-4 flex flex-col flex-1">
+                      {item.isPromoted && (
+                        <div className="mb-1 flex items-center gap-1">
+                          <span className="text-[10px] sm:text-xs text-gray-500 font-medium">Patrocinado</span>
+                          <Info className="w-3 h-3 text-gray-400" />
+                        </div>
+                      )}
+                      <CardHeader className="p-0 mb-1">
+                        <CardTitle className="text-sm sm:text-base font-medium line-clamp-2 leading-tight text-[#2563EB] group-hover:text-[#EA580C] group-hover:underline transition-colors">
+                          {item.titleEs}
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent className="p-0 flex-1 flex flex-col">
+                        <div className="flex items-center gap-1 mb-2">
+                          <div className="flex text-[#FBBF24]">
+                            {[...Array(5)].map((_, i) => (
+                              <Star key={i} className={`h-3.5 w-3.5 ${i < Math.floor(item.rating) ? 'fill-current' : 'text-gray-300'}`} />
+                            ))}
+                          </div>
+                          <span className="text-[#2563EB] text-xs ml-1">{item.totalReviews}</span>
+                        </div>
+                        <div className="flex items-baseline gap-1">
+                          <span className="text-xs align-top"></span>
+                          <span className="text-xl sm:text-2xl font-medium text-gray-900">{item.pricePerDay}</span>
+                          <span className="text-xs text-gray-500">/día</span>
+                        </div>
+                        {item.available && (
+                          <div className="text-xs text-[#16A34A] font-bold mt-1">
+                            Entrega Disponible
+                          </div>
+                        )}
+                        <div className="text-xs text-gray-700 mt-auto pt-2 flex items-center gap-1">
+                          <MapPin className="h-3.5 w-3.5 shrink-0" />
+                          <span className="font-medium truncate">{item.city}</span>
+                        </div>
+                      </CardContent>
+                    </div>
+                  </Card>
+                  {(index + 1) % 8 === 0 && index !== items.length - 1 && (
+                    <div className="col-span-2 md:col-span-3">
+                      <AdSensePlaceholder width="100%" height="120px" className="rounded-xl" />
                     </div>
                   )}
-
-                  <CardHeader className="p-0 mb-2">
-                    <CardTitle className="text-lg md:text-xl font-medium line-clamp-2 leading-tight text-[#2563EB] group-hover:text-[#EA580C] group-hover:underline transition-colors">
-                      {item.titleEs}
-                    </CardTitle>
-                  </CardHeader>
-                  
-                  <CardContent className="p-0 flex-1">
-                    <div className="flex items-center gap-1 mb-3">
-                      <div className="flex text-[#FBBF24]">
-                        {[...Array(5)].map((_, i) => (
-                          <Star key={i} className={`h-4 w-4 ${i < Math.floor(item.rating) ? 'fill-current' : 'text-gray-300'}`} />
-                        ))}
-                      </div>
-                      <span className="text-[#2563EB] group-hover:text-[#EA580C] group-hover:underline text-sm ml-1">
-                        {item.totalReviews}
-                      </span>
-                    </div>
-                    
-                    <div className="mt-1 flex items-baseline gap-1">
-                      <span className="text-sm align-top">€</span>
-                      <span className="text-3xl font-medium text-gray-900">{item.pricePerDay}</span>
-                      <span className="text-sm text-gray-500">/día</span>
-                    </div>
-                    
-                    {item.available && (
-                      <div className="text-xs md:text-sm text-[#16A34A] font-bold mt-2">
-                        Entrega Disponible
-                      </div>
-                    )}
-                    
-                    <div className="text-xs md:text-sm text-gray-700 mt-2 flex items-center gap-1">
-                      <MapPin className="h-4 w-4" />
-                      Ubicación: <span className="font-medium">{item.city}</span>
-                    </div>
-                    
-                    {item.specifications && (
-                      <div className="mt-3 flex gap-4 text-xs text-gray-600">
-                        {Object.entries(item.specifications).slice(0, 2).map(([k, v]) => (
-                          <span key={k}><b>{k}:</b> {v}</span>
-                        ))}
-                      </div>
-                    )}
-                  </CardContent>
-                </div>
-              </Card>
-            ))}
+                </Fragment>
+              ))}
+            </div>
+            <aside className="hidden lg:block w-[300px] shrink-0">
+              <div className="sticky top-24 flex flex-col gap-4">
+                <AdSensePlaceholder width="300px" height="600px" className="rounded-xl" />
+              </div>
+            </aside>
           </div>
         )}
       </main>
