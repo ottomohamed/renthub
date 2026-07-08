@@ -18,26 +18,69 @@ export default function Home() {
   const [items, setItems] = useState<Item[]>([]);
   const [, setLocation] = useLocation();
 
-  // Initial load and search effect
+// Initial load and search effect
   useEffect(() => {
-    // Modify search slightly to account for the new category state if we want later,
-    // for now we pass query and city to mock-db search.
-    reloadFromStorage();
-    const results = searchItems(query, city);
-    
-    // Filter by explicit category if selected
-    let filtered = results;
-    if (category) {
-      filtered = filtered.filter(item => item.category === category);
+    let cancelled = false;
+
+    async function loadItems() {
+      reloadFromStorage();
+      const mockResults = searchItems(query, city);
+
+      let realResults: Item[] = [];
+      try {
+        const params = new URLSearchParams();
+        if (query) params.set("q", query);
+        if (city) params.set("city", city);
+        if (category) params.set("category", category);
+        const res = await fetch(`/api/items?${params.toString()}`);
+        if (res.ok) {
+          const rows = await res.json();
+          realResults = rows.map((row: any) => ({
+            id: row.id + 1_000_000,
+            ownerId: row.ownerId,
+            title: row.titleEs,
+            titleEs: row.titleEs,
+            description: row.description || "",
+            features: row.features || [],
+            category: row.category,
+            pricePerDay: row.pricePerDay,
+            currency: row.currency || "",
+            city: row.city,
+            country: row.country || "España",
+            available: row.available,
+            images: row.images || [],
+            rating: row.rating || 0,
+            totalReviews: row.totalReviews || 0,
+            isPromoted: row.isPromoted || false,
+            specifications: row.specifications || {},
+            lastBumpTime: new Date(row.createdAt || Date.now()),
+            isActive: row.isActive,
+            trialEndsOn: null,
+          }));
+        }
+      } catch {
+      }
+
+      if (cancelled) return;
+
+      let filtered = mockResults;
+      if (category) {
+        filtered = filtered.filter((item) => item.category === category);
+      }
+
+      const combined = [...realResults, ...filtered];
+      const sorted = [...combined].sort((a, b) => {
+        if (a.isPromoted && !b.isPromoted) return -1;
+        if (!a.isPromoted && b.isPromoted) return 1;
+        return 0;
+      });
+      setItems(sorted);
     }
-    
-    // Sort sponsored first
-    const sorted = [...filtered].sort((a, b) => {
-      if (a.isPromoted && !b.isPromoted) return -1;
-      if (!a.isPromoted && b.isPromoted) return 1;
-      return 0;
-    });
-    setItems(sorted);
+
+    loadItems();
+    return () => {
+      cancelled = true;
+    };
   }, [query, city, category]);
 
   return (

@@ -18,18 +18,88 @@ export default function ItemDetail() {
   const [activeImage, setActiveImage] = useState(0);
 
   useEffect(() => {
-    if (params?.id) {
+    if (!params?.id) {
+      setLoading(false);
+      return;
+    }
+
+    const rawId = parseInt(params.id, 10);
+    const isRealItem = rawId >= 1_000_000;
+
+    if (isRealItem) {
+      const realId = rawId - 1_000_000;
+      (async () => {
+        try {
+          const res = await fetch(`/api/items/${realId}`);
+          if (!res.ok) throw new Error("Item not found");
+          const row = await res.json();
+
+          const mappedItem: Item = {
+            id: rawId,
+            ownerId: row.ownerId,
+            title: row.titleEs,
+            titleEs: row.titleEs,
+            description: row.description || "",
+            features: row.features || [],
+            category: row.category,
+            pricePerDay: row.pricePerDay,
+            currency: row.currency || "",
+            city: row.city,
+            country: row.country || "España",
+            available: row.available,
+            images: row.images || [],
+            rating: row.rating || 0,
+            totalReviews: row.totalReviews || 0,
+            isPromoted: row.isPromoted || false,
+            specifications: row.specifications || {},
+            lastBumpTime: new Date(row.createdAt || Date.now()),
+            isActive: row.isActive,
+            trialEndsOn: null,
+          };
+          setItem(mappedItem);
+
+          try {
+            const ownerRes = await fetch(`/api/owners/${row.ownerId}`);
+            if (ownerRes.ok) {
+              const ownerRow = await ownerRes.json();
+              setOwner({
+                id: ownerRow.id,
+                name: ownerRow.name,
+                nameEs: ownerRow.name,
+                email: ownerRow.email,
+                phoneNumber: ownerRow.phoneNumber,
+                city: ownerRow.city,
+                ratingAvg: ownerRow.ratingAvg || 0,
+                totalRatings: ownerRow.totalRatings || 0,
+                verified: ownerRow.verified || false,
+                memberSince: ownerRow.memberSince || new Date().toISOString(),
+                type: "Owner",
+                plan: (ownerRow.plan || "FREE") as User["plan"],
+                hasUsedTrial: false,
+              });
+            }
+          } catch {
+            setOwner(null);
+          }
+        } catch {
+          setItem(null);
+        } finally {
+          setActiveImage(0);
+          setLoading(false);
+        }
+      })();
+    } else {
       reloadFromStorage();
       const foundItem = getItemById(params.id);
       setItem(foundItem || null);
-      
+
       if (foundItem) {
         const foundOwner = getUserById(foundItem.ownerId);
         setOwner(foundOwner || null);
       }
       setActiveImage(0);
+      setLoading(false);
     }
-    setLoading(false);
   }, [params?.id]);
 
   if (loading) {

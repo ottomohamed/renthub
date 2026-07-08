@@ -16,6 +16,9 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CheckCircle2, Loader2, ArrowLeft, Camera, ImagePlus, X } from "lucide-react";
 
+const MIN_IMAGES = 2;
+const MAX_IMAGES = 6;
+
 export default function AddItem() {
   const [, setLocation] = useLocation();
   const params = useParams<{ id?: string }>();
@@ -37,7 +40,7 @@ export default function AddItem() {
   const [category, setCategory] = useState("");
   const [pricePerDay, setPricePerDay] = useState("");
   const [city, setCity] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
+  const [images, setImages] = useState<string[]>([]);
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
   const galleryInputRef = useRef<HTMLInputElement>(null);
@@ -54,7 +57,7 @@ export default function AddItem() {
         setCategory(data.category || "");
         setPricePerDay(String(data.pricePerDay ?? ""));
         setCity(data.city || "");
-        setImageUrl(data.images?.[0] || "");
+        setImages(Array.isArray(data.images) ? data.images.slice(0, MAX_IMAGES) : []);
       } catch (err: any) {
         setError(err.message || "No se pudo cargar el anuncio.");
       } finally {
@@ -66,6 +69,12 @@ export default function AddItem() {
   async function handleFileSelected(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (!file) return;
+
+    if (images.length >= MAX_IMAGES) {
+      setUploadError(`Máximo ${MAX_IMAGES} fotos por anuncio.`);
+      e.target.value = "";
+      return;
+    }
 
     if (file.size > 4.4 * 1024 * 1024) {
       setUploadError("La imagen es demasiado grande (máx. 4 MB). Prueba con una foto de menor resolución.");
@@ -87,13 +96,17 @@ export default function AddItem() {
       }
 
       const blob = await res.json();
-      setImageUrl(blob.url);
+      setImages((prev) => [...prev, blob.url]);
     } catch (err: any) {
       setUploadError(err.message || "Error al subir la imagen. Inténtalo de nuevo.");
     } finally {
       setUploading(false);
       e.target.value = "";
     }
+  }
+
+  function removeImage(index: number) {
+    setImages((prev) => prev.filter((_, i) => i !== index));
   }
 
   const itemFieldsValid = Boolean(
@@ -103,7 +116,8 @@ export default function AddItem() {
       pricePerDay &&
       Number(pricePerDay) > 0 &&
       city.trim() &&
-      imageUrl.trim(),
+      images.length >= MIN_IMAGES &&
+      images.length <= MAX_IMAGES,
   );
   const ownerFieldsValid = Boolean(
     ownerName.trim() && ownerEmail.trim() && ownerPhone.trim() && ownerCity.trim(),
@@ -125,7 +139,7 @@ export default function AddItem() {
           category,
           pricePerDay: Number(pricePerDay),
           city: city.trim(),
-          images: [imageUrl.trim()],
+          images,
         });
         setSuccess(true);
         setTimeout(() => setLocation("/seller-dashboard"), 1500);
@@ -146,7 +160,7 @@ export default function AddItem() {
             currency: "",
             city: city.trim(),
             country: "España",
-            images: [imageUrl.trim()],
+            images,
             specifications: {},
           },
         });
@@ -284,63 +298,70 @@ export default function AddItem() {
               </div>
 
               <div className="sm:col-span-2">
-                <Label>Foto del artículo</Label>
+                <div className="flex items-center justify-between">
+                  <Label>Fotos del artículo ({images.length}/{MAX_IMAGES})</Label>
+                  <span className="text-xs text-gray-500">Mínimo {MIN_IMAGES} fotos</span>
+                </div>
 
-                {imageUrl ? (
-                  <div className="relative mt-1 w-40 h-40 rounded-lg overflow-hidden border border-gray-200">
-                    <img src={imageUrl} alt="Vista previa" className="w-full h-full object-cover" />
-                    <button
-                      type="button"
-                      onClick={() => setImageUrl("")}
-                      className="absolute top-1 right-1 bg-black/60 text-white rounded-full p-1 hover:bg-black/80"
-                      data-testid="button-remove-image"
-                    >
-                      <X className="w-4 h-4" />
-                    </button>
-                  </div>
-                ) : (
-                  <div className="flex gap-3 mt-1">
-                    <input
-                      ref={galleryInputRef}
-                      type="file"
-                      accept="image/*"
-                      className="hidden"
-                      onChange={handleFileSelected}
-                      data-testid="input-file-gallery"
-                    />
-                    <input
-                      ref={cameraInputRef}
-                      type="file"
-                      accept="image/*"
-                      capture="environment"
-                      className="hidden"
-                      onChange={handleFileSelected}
-                      data-testid="input-file-camera"
-                    />
+                <div className="flex flex-wrap gap-3 mt-1">
+                  {images.map((url, index) => (
+                    <div key={url + index} className="relative w-24 h-24 rounded-lg overflow-hidden border border-gray-200">
+                      <img src={url} alt={`Foto ${index + 1}`} className="w-full h-full object-cover" />
+                      <button
+                        type="button"
+                        onClick={() => removeImage(index)}
+                        className="absolute top-1 right-1 bg-black/60 text-white rounded-full p-0.5 hover:bg-black/80"
+                        data-testid={`button-remove-image-${index}`}
+                      >
+                        <X className="w-3 h-3" />
+                      </button>
+                    </div>
+                  ))}
 
-                    <button
-                      type="button"
-                      onClick={() => galleryInputRef.current?.click()}
-                      disabled={uploading}
-                      className="flex-1 flex flex-col items-center justify-center gap-1 h-24 rounded-md border-2 border-dashed border-gray-300 text-gray-500 hover:border-[#FF6B35] hover:text-[#FF6B35] transition-colors disabled:opacity-50"
-                      data-testid="button-upload-gallery"
-                    >
-                      <ImagePlus className="w-5 h-5" />
-                      <span className="text-xs font-medium">Subir desde galería</span>
-                    </button>
+                  {images.length < MAX_IMAGES && (
+                    <>
+                      <input
+                        ref={galleryInputRef}
+                        type="file"
+                        accept="image/*"
+                        className="hidden"
+                        onChange={handleFileSelected}
+                        data-testid="input-file-gallery"
+                      />
+                      <input
+                        ref={cameraInputRef}
+                        type="file"
+                        accept="image/*"
+                        capture="environment"
+                        className="hidden"
+                        onChange={handleFileSelected}
+                        data-testid="input-file-camera"
+                      />
 
-                    <button
-                      type="button"
-                      onClick={() => cameraInputRef.current?.click()}
-                      disabled={uploading}
-                      className="flex-1 flex flex-col items-center justify-center gap-1 h-24 rounded-md border-2 border-dashed border-gray-300 text-gray-500 hover:border-[#FF6B35] hover:text-[#FF6B35] transition-colors disabled:opacity-50"
-                      data-testid="button-upload-camera"
-                    >
-                      <Camera className="w-5 h-5" />
-                      <span className="text-xs font-medium">Hacer una foto</span>
-                    </button>
-                  </div>
-                )}
+                      <button
+                        type="button"
+                        onClick={() => galleryInputRef.current?.click()}
+                        disabled={uploading}
+                        className="w-24 h-24 flex flex-col items-center justify-center gap-1 rounded-lg border-2 border-dashed border-gray-300 text-gray-500 hover:border-[#FF6B35] hover:text-[#FF6B35] transition-colors disabled:opacity-50"
+                        data-testid="button-upload-gallery"
+                      >
+                        <ImagePlus className="w-5 h-5" />
+                        <span className="text-[10px] font-medium text-center px-1">Galería</span>
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => cameraInputRef.current?.click()}
+                        disabled={uploading}
+                        className="w-24 h-24 flex flex-col items-center justify-center gap-1 rounded-lg border-2 border-dashed border-gray-300 text-gray-500 hover:border-[#FF6B35] hover:text-[#FF6B35] transition-colors disabled:opacity-50"
+                        data-testid="button-upload-camera"
+                      >
+                        <Camera className="w-5 h-5" />
+                        <span className="text-[10px] font-medium text-center px-1">Cámara</span>
+                      </button>
+                    </>
+                  )}
+                </div>
 
                 {uploading && (
                   <p className="text-xs text-gray-500 mt-2 flex items-center gap-1">
