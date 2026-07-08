@@ -13,8 +13,17 @@ import {
   SelectContent,
   SelectItem,
 } from "@/components/ui/select";
+import {
+  Command,
+  CommandInput,
+  CommandList,
+  CommandEmpty,
+  CommandGroup,
+  CommandItem,
+} from "@/components/ui/command";
+import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { CheckCircle2, Loader2, ArrowLeft, Camera, ImagePlus, X } from "lucide-react";
+import { CheckCircle2, Loader2, ArrowLeft, Camera, ImagePlus, X, ChevronsUpDown, Check } from "lucide-react";
 
 const MIN_IMAGES = 2;
 const MAX_IMAGES = 6;
@@ -40,6 +49,7 @@ export default function AddItem() {
   const [category, setCategory] = useState("");
   const [pricePerDay, setPricePerDay] = useState("");
   const [city, setCity] = useState("");
+  const [cityPopoverOpen, setCityPopoverOpen] = useState(false);
   const [images, setImages] = useState<string[]>([]);
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
@@ -277,19 +287,51 @@ export default function AddItem() {
 
               <div>
                 <Label htmlFor="city">Ciudad del artículo</Label>
-                <Input
-                  id="city"
-                  list="city-suggestions"
-                  value={city}
-                  onChange={(e) => setCity(e.target.value)}
-                  placeholder="Escribe cualquier ciudad de España"
-                  data-testid="input-item-city"
-                />
-                <datalist id="city-suggestions">
-                  {MAJOR_CITIES.map((c) => (
-                    <option key={c} value={c} />
-                  ))}
-                </datalist>
+                <Popover open={cityPopoverOpen} onOpenChange={setCityPopoverOpen}>
+                  <PopoverTrigger asChild>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      role="combobox"
+                      aria-expanded={cityPopoverOpen}
+                      className="w-full justify-between font-normal"
+                      data-testid="button-city-combobox"
+                    >
+                      {city || "Selecciona o escribe una ciudad"}
+                      <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-[--radix-popover-trigger-width] p-0" align="start">
+                    <Command>
+                      <CommandInput
+                        placeholder="Buscar o escribir ciudad..."
+                        value={city}
+                        onValueChange={setCity}
+                        data-testid="input-item-city"
+                      />
+                      <CommandList className="max-h-64">
+                        <CommandEmpty>
+                          Sin coincidencias. Puedes usar "{city}" igualmente.
+                        </CommandEmpty>
+                        <CommandGroup>
+                          {MAJOR_CITIES.map((c) => (
+                            <CommandItem
+                              key={c}
+                              value={c}
+                              onSelect={(value) => {
+                                setCity(value);
+                                setCityPopoverOpen(false);
+                              }}
+                            >
+                              <Check className={`mr-2 h-4 w-4 ${city === c ? "opacity-100" : "opacity-0"}`} />
+                              {c}
+                            </CommandItem>
+                          ))}
+                        </CommandGroup>
+                      </CommandList>
+                    </Command>
+                  </PopoverContent>
+                </Popover>
               </div>
 
               <div>
