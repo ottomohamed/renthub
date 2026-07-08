@@ -1,4 +1,5 @@
 import express, { type Request, type Response } from "express";
+import multer from "multer";
 import { Pool } from "pg";
 import { drizzle } from "drizzle-orm/node-postgres";
 import { pgTable, text, varchar, integer, real, boolean, timestamp, jsonb, serial } from "drizzle-orm/pg-core";
@@ -6,7 +7,7 @@ import { eq, and, ilike, desc } from "drizzle-orm";
 import { z } from "zod";
 import { createInsertSchema } from "drizzle-zod";
 import { sql } from "drizzle-orm";
-import { handleUpload, type HandleUploadBody } from "@vercel/blob/client";
+import { put } from "@vercel/blob";
 
 const owners = pgTable("owners", {
   id: serial("id").primaryKey(),
@@ -78,25 +79,29 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.post("/api/upload", async (req: Request, res: Response) => {
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 4.4 * 1024 * 1024 },
+});
+
+app.post("/api/upload", upload.single("file"), async (req: Request, res: Response) => {
   try {
-    const body = req.body as HandleUploadBody;
-    const jsonResponse = await handleUpload({
-      body,
-      request: req,
-      onBeforeGenerateToken: async () => {
-        return {
-          allowedContentTypes: ["image/jpeg", "image/png", "image/webp", "image/gif"],
-          maximumSizeInBytes: 15 * 1024 * 1024,
-          addRandomSuffix: true,
-        };
-      },
-      onUploadCompleted: async () => {
-      },
+    if (!req.file) {
+      return res.status(400).json({ message: "No se recibió ningún archivo." });
+    }
+
+    const blob = await put(req.file.originalname, req.file.buffer, {
+      access: "public",
+      contentType: req.file.mimetype,
+      addRandomSuffix: true,
     });
-    res.json(jsonResponse);
+
+    res.json(blob);
   } catch (err: any) {
-    res.status(400).json({ message: err.message || "Error generating upload token" });
+    if (err.code === "LIMIT_FILE_SIZE") {
+      return res.status(413).json({ message: "La imagen es demasiado grande (máx. 4 MB). Prueba con una foto de menor resolución." });
+    }
+    res.status(500).json({ message: err.message || "Error al subir la imagen" });
   }
 });
 

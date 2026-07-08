@@ -2,7 +2,6 @@ import { useState, useRef, useEffect } from "react";
 import { useLocation, useParams, Link } from "wouter";
 import { CATEGORIES, MAJOR_CITIES } from "@/lib/spain-data";
 import { apiRequest } from "@/lib/queryClient";
-import { upload } from "@vercel/blob/client";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
@@ -68,14 +67,26 @@ export default function AddItem() {
     const file = e.target.files?.[0];
     if (!file) return;
 
+    if (file.size > 4.4 * 1024 * 1024) {
+      setUploadError("La imagen es demasiado grande (máx. 4 MB). Prueba con una foto de menor resolución.");
+      e.target.value = "";
+      return;
+    }
+
     setUploading(true);
     setUploadError(null);
 
     try {
-      const blob = await upload(file.name, file, {
-        access: "public",
-        handleUploadUrl: "/api/upload",
-      });
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const res = await fetch("/api/upload", { method: "POST", body: formData });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.message || "Error al subir la imagen.");
+      }
+
+      const blob = await res.json();
       setImageUrl(blob.url);
     } catch (err: any) {
       setUploadError(err.message || "Error al subir la imagen. Inténtalo de nuevo.");
